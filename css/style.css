@@ -1,55 +1,15 @@
-.table {
-    background: black;
+* {
+	box-sizing: border-box;
 }
 
-style {
-        "background-color:#121212;"
-        color:#121212;
-        color:white;
-        }
-
-.indexbody {
-    background-color: #2E2E2E;
+.product {
+	float: left;
+	width: 33.3%;
+	padding: 5px;
 }
 
-.homename {
-    color: white;
-}
-
-.resumebody {
-    background-color: #2E2E2E;
-}
-
-.red {
-    color: red;
-}
-
-.white {
-    color: white;
-}
-
-.contactusbody {
-    background-color: #2E2E2E;
-}
-
-.aboutusbody {
-    background-color: #2E2E2E;
-}
-
-#underline {
-    text-decoration: underline;
-}
-
-#aboutmetext {
-body {
-    background-color:#202020
-}
-p {
-    color:white;
-    font-size: 20px;
-}
-h1 {
-    color:white
-}
-   
+.product-list::after {
+	content: "";
+	display: table;
+	clear: both;
 }
