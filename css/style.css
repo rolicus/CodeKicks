@@ -1,0 +1,55 @@
+.table {
+    background: black;
+}
+
+style {
+        "background-color:#121212;"
+        color:#121212;
+        color:white;
+        }
+
+.indexbody {
+    background-color: #2E2E2E;
+}
+
+.homename {
+    color: white;
+}
+
+.resumebody {
+    background-color: #2E2E2E;
+}
+
+.red {
+    color: red;
+}
+
+.white {
+    color: white;
+}
+
+.contactusbody {
+    background-color: #2E2E2E;
+}
+
+.aboutusbody {
+    background-color: #2E2E2E;
+}
+
+#underline {
+    text-decoration: underline;
+}
+
+#aboutmetext {
+body {
+    background-color:#202020
+}
+p {
+    color:white;
+    font-size: 20px;
+}
+h1 {
+    color:white
+}
+   
+}
