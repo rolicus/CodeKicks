@@ -1,19 +1,46 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 const app = express();
 
-const uri = 'mongodb+srv://rolicus:CodeKicks4550@cluster0.oqn2t2i.mongodb.net/?retryWrites=true&w=majority'
+const uri = 'mongodb+srv://rolicus:CodeKicks4550@cluster0.oqn2t2i.mongodb.net/?retryWrites=true&w=majority';
 
-async function connect(){
+async function connect() {
     try {
-        await mongoose.connect(uri)
+        await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
         console.log("Connected to MongoDB");
-    } catch (erro) {
+    } catch (error) {
         console.error(error);
     }
 }
 
+// Connect to MongoDB
 connect();
+
+// Middleware to parse incoming JSON data
+app.use(bodyParser.json());
+
+// Login route
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+    
+    // Authenticate user with MongoDB
+    // ... (This is where you would check the credentials against the database)
+
+    // Send response
+    res.json({ message: 'Logged in successfully' });
+});
+
+// Add to cart route
+app.post('/addToCart', (req, res) => {
+    const { productName, size, price } = req.body;
+
+    // Add product to cart or save it to the database
+    // ... (This is where you would save the product details to the cart in the database)
+
+    // Send response
+    res.json({ message: 'Product added to cart' });
+});
 
 app.listen(8000, () => {
     console.log("Server started on port 8000");
