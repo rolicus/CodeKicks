@@ -5,7 +5,6 @@
         <link rel="stylesheet" href="css/navbar.css">
         <link rel="stylesheet" href="css/style.css">
     </head>
-
     <body>
         <ul class="navbar">
             <li><a href="home.html">Home</a></li>
@@ -13,44 +12,61 @@
             <li><a href="aboutus.html">About Us</a></li>
             <li><a href="contact.html">Contact Us</a></li>
             <li><a href="login.html">Login</a></li>
-            </li>
         </ul>
-    </body>
-    <body>
+
         <header>
             <h1>Welcome to Shoe Shop</h1>
         <hr>
         </header>
-        
+
+        <!-- script added here -->
+        <script>
+            function addToCart(productName, size, price) {
+                fetch('http://localhost:3000/addToCart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ productName, size, price })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        alert(data.message);
+                    }
+                });
+            }
+        </script>
 
         <section class="product-list">
             <div class="product">
-                <img src="images/ultraboost.png" height="300px" img>
+                <img src="images/ultraboost.png" height="300px">
                 <h2>Adidas Ultra Boost</h2>
                 <p>Size: 10</p>
                 <p>Price: $139.99</p>
-                <button>Add to Cart</button>
+                <button onclick="addToCart('Adidas Ultra Boost', '10', '139.99')">Add to Cart</button>
             </div>
             <div class="product">
-                <img src="images/bluejordans.png" height="300px" img>
+                <img src="images/bluejordans.png" height="300px">
                 <h2>Nike Air Jordan 1</h2>
                 <p>Size: 12</p>
                 <p>Price: $129.99</p>
-                <button>Add to Cart</button>
+                <button onclick="addToCart('Nike Air Jordan 1', '12', '129.99')">Add to Cart</button>
             </div>
             <div class="product">
-                <img src="images/chucks.png" height="300px" img>
+                <img src="images/chucks.png" height="300px">
                 <h2>Converse Chuck Taylor</h2>
                 <p>Size: 8</p>
                 <p>Price: $79.99</p>
-                <button>Add to Cart</button>
+                <button onclick="addToCart('Converse Chuck Taylor', '8', '79.99')">Add to Cart</button>
             </div>
                 <!-- Add more product listings here -->
         </section>
+
         <hr>
-            <footer>
-                <p>&copy; 2023 CodeKicks</p>
-            </footer>
+
+        <footer>
+            <p>&copy; 2023 CodeKicks</p>
+        </footer>
     </body>
 </html>
-                       
