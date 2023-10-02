@@ -45,8 +45,8 @@ app.post('/login', (req, res) => {
 });
 
 // Add to cart route
-app.post('/addToCart', (req, res) => {
-    const { productName, size, price } = req.body;
+app.post('/addToCart', async (req, res) => {
+    const { productId, productName, size, price } = req.body;
 
     // Add product to cart or save it to the database
     // ... (This is where you would save the product details to the cart in the database)
