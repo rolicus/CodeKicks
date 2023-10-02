@@ -19,15 +19,25 @@
         <hr>
         </header>
 
-        <!-- script added here -->
+        <section class="product-list">
+            <!-- Products will be populated dynamically from the script below -->
+        </section>
+
+        <hr>
+
+        <footer>
+            <p>&copy; 2023 CodeKicks</p>
+        </footer>
+
+        <!-- Existing script -->
         <script>
-            function addToCart(productName, size, price) {
+            function addToCart(productId, productName, size, price) {
                 fetch('http://localhost:8000/addToCart', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ productName, size, price })
+                    body: JSON.stringify({ productId, productName, size, price })
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -38,35 +48,50 @@
             }
         </script>
 
-        <section class="product-list">
-            <div class="product">
-                <img src="images/ultraboost.png" height="300px">
-                <h2>Adidas Ultra Boost</h2>
-                <p>Size: 10</p>
-                <p>Price: $139.99</p>
-                <button onclick="addToCart('Adidas Ultra Boost', '10', '139.99')">Add to Cart</button>
-            </div>
-            <div class="product">
-                <img src="images/bluejordans.png" height="300px">
-                <h2>Nike Air Jordan 1</h2>
-                <p>Size: 12</p>
-                <p>Price: $129.99</p>
-                <button onclick="addToCart('Nike Air Jordan 1', '12', '129.99')">Add to Cart</button>
-            </div>
-            <div class="product">
-                <img src="images/chucks.png" height="300px">
-                <h2>Converse Chuck Taylor</h2>
-                <p>Size: 8</p>
-                <p>Price: $79.99</p>
-                <button onclick="addToCart('Converse Chuck Taylor', '8', '79.99')">Add to Cart</button>
-            </div>
-                <!-- Add more product listings here -->
-        </section>
+        <!-- New script for fetching products and populating the page dynamically -->
+        <script>
+            document.addEventListener('DOMContentLoaded', async () => {
+                try {
+                    const response = await fetch('http://localhost:8000/products');
+                    const products = await response.json();
+                    
+                    const productList = document.querySelector('.product-list');
+                    
+                    products.forEach(product => {
+                        const productDiv = document.createElement('div');
+                        productDiv.className = 'product';
 
-        <hr>
+                        const productImage = document.createElement('img');
+                        productImage.src = 'images/' + product.name.replace(' ', '').toLowerCase() + '.png';
+                        productImage.height = 300;
 
-        <footer>
-            <p>&copy; 2023 CodeKicks</p>
-        </footer>
+                        const productName = document.createElement('h2');
+                        productName.textContent = product.name;
+
+                        const productSize = document.createElement('p');
+                        productSize.textContent = 'Size: ' + product.size;
+
+                        const productPrice = document.createElement('p');
+                        productPrice.textContent = 'Price: $' + product.price;
+
+                        const addToCartButton = document.createElement('button');
+                        addToCartButton.textContent = 'Add to Cart';
+                        addToCartButton.addEventListener('click', () => {
+                            addToCart(product.name, product.size, product.price);
+                        });
+
+                        productDiv.appendChild(productImage);
+                        productDiv.appendChild(productName);
+                        productDiv.appendChild(productSize);
+                        productDiv.appendChild(productPrice);
+                        productDiv.appendChild(addToCartButton);
+
+                        productList.appendChild(productDiv);
+                    });
+                } catch (err) {
+                    console.error('Failed to fetch products:', err);
+                }
+            });
+        </script>
     </body>
 </html>
