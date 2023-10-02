@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const app = express();
 
+const Product = require('./models/Product'); // Add this with your other imports
+
 const uri = 'mongodb+srv://rolicus:CodeKicks4550@cluster0.oqn2t2i.mongodb.net/?retryWrites=true&w=majority';
 
 async function connect() {
@@ -19,6 +21,17 @@ connect();
 
 // Middleware to parse incoming JSON data
 app.use(bodyParser.json());
+
+// Route to fetch all products
+app.get('/products', async (req, res) => {
+    try {
+        const products = await Product.find();
+        res.json(products);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+    }
+});
 
 // Login route
 app.post('/login', (req, res) => {
