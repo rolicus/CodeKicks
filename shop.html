@@ -76,8 +76,10 @@
 
                         const addToCartButton = document.createElement('button');
                         addToCartButton.textContent = 'Add to Cart';
+                        
+                        // Adding the event listener to the button
                         addToCartButton.addEventListener('click', () => {
-                            addToCart(product.name, product.size, product.price);
+                            addToCart(product._id, product.name, product.size, product.price);
                         });
 
                         productDiv.appendChild(productImage);
