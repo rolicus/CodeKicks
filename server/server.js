@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const app = express();
 
-const Product = require('./models/Product'); // Add this with your other imports
+const Product = require('./models/Product');
 
 const uri = 'mongodb+srv://rolicus:CodeKicks4550@cluster0.oqn2t2i.mongodb.net/?retryWrites=true&w=majority';
 
@@ -38,7 +38,7 @@ app.post('/login', (req, res) => {
     const { username, password } = req.body;
     
     // Authenticate user with MongoDB
-    // ... (This is where you would check the credentials against the database)
+    // This is where we would check the credentials against the database
 
     // Send response
     res.json({ message: 'Logged in successfully' });
@@ -49,7 +49,7 @@ app.post('/addToCart', async (req, res) => {
     const { productId, productName, size, price } = req.body;
 
     // Add product to cart or save it to the database
-    // ... (This is where you would save the product details to the cart in the database)
+    // This is where we would save the product details to the cart in the database
 
     // Send response
     res.json({ message: 'Product added to cart' });
