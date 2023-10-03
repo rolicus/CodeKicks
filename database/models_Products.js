@@ -9,4 +9,6 @@ const productSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Product', productSchema);
-// file name models/Product.js
+// Code for new file called models/Product.js  
+// We have an array of JSON objects that represents products. 
+// We need to save these products into the database and fetch them later.
