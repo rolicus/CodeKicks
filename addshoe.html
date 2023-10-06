@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Shoe</title>
+    <link rel="stylesheet" href="css/addshoe.css"> 
+</head>
+<body>
+    <h1>Add Shoe</h1>
+    <form id="addShoeForm" enctype="multipart/form-data">
+        <label for="shoeImage">Upload Image:</label>
+        <input type="file" id="shoeImage" name="shoeImage" accept="image/*" required />
+
+        <label for="shoeTitle">Title:</label>
+        <input type="text" id="shoeTitle" name="shoeTitle" required />
+
+        <label for="shoeBrand">Brand:</label>
+        <input type="text" id="shoeBrand" name="shoeBrand" required />
+
+        <label for="shoeSize">Size:</label>
+        <input type="text" id="shoeSize" name="shoeSize" required />
+
+        <label for="shoeColor">Color:</label>
+        <input type="text" id="shoeColor" name="shoeColor" required />
+
+        <label for="shoePrice">Price:</label>
+        <input type="text" id="shoePrice" name="shoePrice" required />
+
+        <input type="submit" value="Add to Shop" />
+    </form>
+
+    <script>
+        document.getElementById("addShoeForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+
+            
+            const productListing = {
+                image: formData.get("shoeImage"),
+                title: formData.get("shoeTitle"),
+                brand: formData.get("shoeBrand"),
+                size: formData.get("shoeSize"),
+                color: formData.get("shoeColor"),
+                price: formData.get("shoePrice")
+            };
+
+           
+            this.reset();
+        });
+    </script>
+</body>
+</html>
