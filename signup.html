@@ -1,29 +1,44 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Create Account</title>
-        <link rel="stylesheet" href="css/signup.css">
-    </head>
-    <body>
-        <div class="signup-box">
-            <form>
-                <h1>Create Account</h1>
-                <form>
-                    <label>First Name</label>
-                    <input type="text" placeholder="" />
-                    <label>Last Name</label>
-                    <input type="text" placeholder="" />
-                    <label>Address</label>
-                    <input type ="text" placeholder ="" />
-                    <label>Email</label>
-                    <input type="email" placeholder="" />
-                    <label>Password</label>
-                    <input type="password" placeholder="" />
-                    <label>Confirm Password</label>
-                    <input type="password" placeholder="" />
-                    <input type="button" value="Submit" class="signUpBtn" />
-                    <closeform></closeform></form>
-            </div>
-        </form>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+</head>
+<body>
+    <h1>Sign Up</h1>
+    <form action="/signup" method="POST" onsubmit="signUp(); return false;">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required><br><br>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required><br><br>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <!-- Add an ID to the form for JavaScript -->
+        <input type="submit" id="signupButton" value="Sign Up">
+    </form>
+    <script>
+        document.getElementById("signupForm").addEventListener("submit", function (event) {
+            // Prevent the default form submission
+            event.preventDefault();
+
+            // Submit the form data
+            this.submit();
+
+            // Redirect to login.html after a brief delay (adjust the delay as needed)
+            setTimeout(function () {
+                window.location.href = "/login.html";
+            }, 1000); // 1000 milliseconds (1 second)
+        });
+    </script>
+</body>
 </html>

@@ -1,45 +1,24 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Login</title>
-        <link rel="stylesheet" href="css/main.css">
-    </head>
-    <body>
-        <form id="loginForm">
-            <h1>Login</h1>
-            <div class="textBoxdiv">
-                <input type="text" id="username" placeholder="Username">
-            </div>
-            <div class="textBoxdiv">
-                <input type="password" id="password" placeholder="Password"> <!-- changed to type password -->
-            </div>
-            <input type="button" value="Login" class="loginBtn" onclick="login()">
-            <div class="signup">
-                Don't have an account?
-                <br>
-                <a href="signup.html">Create an Account</a>
-            </div>
-        </form>
-        <!-- script added here -->
-        <script>
-            function login() {
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-
-                fetch('http://localhost:8000/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ username, password })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.message) {
-                        alert(data.message);
-                    }
-                });
-            }
-        </script>
-    </body>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <form id="loginForm" method="POST" action="/login"> <!-- Update the form's action -->
+        <h1>Login</h1>
+        <div class="textBoxdiv">
+            <input type="text" id="username" name="email" placeholder="Username"> <!-- Update the input name to match the server-side code -->
+        </div>
+        <div class="textBoxdiv">
+            <input type="password" id="password" name="password" placeholder="Password"> <!-- Update the input name to match the server-side code -->
+        </div>
+        <input type="submit" value="Login" class="loginBtn"> <!-- Use type="submit" to submit the form -->
+        <div class="signup">
+            Don't have an account?
+            <br>
+            <a href="signup.html">Create an Account</a>
+        </div>
+    </form>
+</body>
 </html>
