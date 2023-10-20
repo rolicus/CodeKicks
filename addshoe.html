@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Shoe</title>
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/addshoe.css"> <!-- Include your custom CSS -->
+</head>
+<body>
+    <ul class="navbar">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="aboutus.html">About Us</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="login.html">Login</a></li>
+        <!-- Update the href attribute to point to "addshoe.html" -->
+        <li><a href="addshoe.html" id="addShoeLink" style="display: none;">Add Shoe</a></li>
+    </ul>
+    <hr>
+    <footer>
+        <p>&copy; 2023 CodeKicks</p>
+    </footer>
+
+    <!-- Shoe addition form goes here -->
+    <form id="shoeForm" action="/addShoe" method="post">
+        <h2>Add Shoe</h2>
+        <label for="name">Shoe Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="price">Price:</label>
+        <input type="text" id="price" name="price" required><br><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea><br><br>
+
+        <button type="submit">Add Shoe</button>
+    </form>
+
+    <!-- Add the "Delete Shoe" option -->
+    <div id="deleteShoeOption" style="display: none;">
+        <h2>Delete Shoe</h2>
+        <label for="shoeToDelete">Select Shoe to Delete:</label>
+        <select id="shoeToDelete">
+            <!-- Options will be populated by JavaScript -->
+        </select>
+        <button id="deleteButton" onclick="deleteShoe()">Delete Shoe</button>
+    </div>
+
+    <script>
+        // Simulate authentication state (replace with actual logic)
+        const userIsAuthenticated = true; // Change to false when the user is not authenticated
+
+        // This variable will control the visibility of the "Add Shoe" link
+        const addShoeLink = document.querySelector("a[href='addshoe.html']");
+
+        if (userIsAuthenticated) {
+            // If the user is authenticated, show the "Add Shoe" link
+            addShoeLink.style.display = "inline";
+
+            // Show the "Delete Shoe" option
+            document.getElementById("deleteShoeOption").style.display = "block";
+
+            // Function to fetch shoe data and populate the dropdown
+            function populateShoeDropdown() {
+                fetch('/shoes')
+                    .then(response => response.json())
+                    .then(data => {
+                        const select = document.getElementById("shoeToDelete");
+                        // Clear existing options
+                        select.innerHTML = '';
+                        // Populate options with shoe data
+                        data.forEach(shoe => {
+                            const option = document.createElement("option");
+                            option.value = shoe._id;
+                            option.text = shoe.name;
+                            select.appendChild(option);
+                        });
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            }
+
+            // Call the populateShoeDropdown function to fill the dropdown
+            populateShoeDropdown();
+        } else {
+            // If the user is not authenticated, hide the "Add Shoe" link
+            addShoeLink.style.display = "none";
+        }
+
+        // Add the JavaScript function for deleting a shoe
+        function deleteShoe() {
+            const select = document.getElementById("shoeToDelete");
+            const selectedShoeId = select.value;
+
+            // Confirm with the user before deleting
+            const confirmDelete = confirm("Are you sure you want to delete this shoe?");
+            if (!confirmDelete) {
+                return; // Do nothing if the user cancels the delete operation
+            }
+
+            // Send a request to your server to delete the selected shoe
+            fetch(`/deleteShoe/${selectedShoeId}`, { method: "DELETE" })
+                .then(response => {
+                    if (response.status === 200) {
+                        alert("Shoe deleted successfully");
+                        populateShoeDropdown(); // Refresh the dropdown
+                    } else {
+                        alert("Failed to delete the shoe");
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert("An error occurred while deleting the shoe");
+                });
+        }
+    </script>
+</body>
+</html>
