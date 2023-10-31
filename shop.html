@@ -15,32 +15,123 @@
         <li><a href="login.html">Login</a></li>
     </ul>
     <h1>Shop</h1>
-    <!-- Add a form to add shoes -->
-    <h2>Add a New Shoe</h2>
-    <form action="/addShoe" method="POST">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required><br><br>
-
-        <label for="price">Price:</label>
-        <input type="number" id="price" name="price" required><br><br>
-
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" required></textarea><br><br>
-
-        <!-- Add other shoe properties as needed -->
-
-        <input type="submit" value="Add Shoe">
-    </form>
-
+    
     <!-- Display a list of available shoes -->
     <h2>Available Shoes</h2>
     <ul id="shoeList">
-        <!-- You can dynamically generate this list using JavaScript or server-side code -->
+        <!-- Shoes will be displayed here -->
     </ul>
+    
+    <!-- Shopping cart section -->
+    <h2>Shopping Cart</h2>
+    <ul id="shoppingCart">
+        <!-- Selected items will be displayed here -->
+    </ul>
+    
+    <!-- Checkout button -->
+    <button onclick="redirectToCheckout()">Checkout</button>
 
     <hr>
     <footer>
         <p>&copy; 2023 CodeKicks</p>
     </footer>
+
+    <script>
+        // Function to fetch shoe data and populate the list
+        function fetchShoeData() {
+            fetch('/shoes') // Replace with the correct URL of your server
+                .then((response) => response.json())
+                .then((data) => {
+                    const shoeList = document.getElementById("shoeList");
+
+                    // Clear any existing items in the list
+                    shoeList.innerHTML = "";
+
+                    // Iterate through the shoe data and add items to the list
+                    data.forEach((shoe) => {
+                        const listItem = document.createElement("li");
+                        listItem.textContent = `Name: ${shoe.name}, Price: $${shoe.price}, Description: ${shoe.description}, Stock: ${shoe.stock}`;
+                        
+                        // Include an input field for quantity and a button to add the shoe to the cart
+                        const quantityInput = document.createElement("input");
+                        quantityInput.type = "number";
+                        quantityInput.min = "1";
+                        quantityInput.value = "1";
+
+                        const addButton = document.createElement("button");
+                        addButton.textContent = "Add to Cart";
+                        addButton.addEventListener("click", () => {
+                            // Call the addToCart function with the selected shoe
+                            addToCart(shoe, quantityInput);
+                        });
+
+                        listItem.appendChild(quantityInput);
+                        listItem.appendChild(addButton);
+
+                        shoeList.appendChild(listItem);
+                    });
+                })
+                .catch((error) => {
+                    console.error("Error fetching shoes:", error);
+                });
+        }
+
+        // Call the function to fetch and display shoe data
+        fetchShoeData();
+
+        // Shopping cart functionality
+        const shoppingCart = document.getElementById("shoppingCart");
+        const cartItems = [];
+
+        function addToCart(shoe, quantityInput) {
+            const quantity = parseInt(quantityInput.value);
+            
+            if (quantity <= 0) {
+                alert("Quantity must be greater than 0.");
+                return;
+            }
+            
+            if (quantity > shoe.stock) {
+                alert("Not enough stock available.");
+                return;
+            }
+
+            const existingItem = cartItems.find(item => item.shoe._id === shoe._id);
+
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                cartItems.push({
+                    shoe,
+                    quantity
+                });
+            }
+            
+            updateCart();
+        }
+
+        function updateCart() {
+            shoppingCart.innerHTML = ''; // Clear the cart
+            let total = 0;
+
+            cartItems.forEach(item => {
+                const cartItem = document.createElement('li');
+                cartItem.textContent = `Name: ${item.shoe.name}, Price: $${item.shoe.price}, Quantity: ${item.quantity}`;
+                shoppingCart.appendChild(cartItem);
+                total += item.shoe.price * item.quantity;
+            });
+
+            const cartTotal = document.createElement('li');
+            cartTotal.textContent = `Total: $${total}`;
+            shoppingCart.appendChild(cartTotal);
+        }
+
+        // Function to redirect to the checkout page
+        function redirectToCheckout() {
+            // Save the cart data to session storage before redirecting
+            sessionStorage.setItem('cart', JSON.stringify(cartItems));
+            window.location.href = "checkout.html"; // Replace with the correct URL of your checkout page
+        }
+    </script>
 </body>
 </html>

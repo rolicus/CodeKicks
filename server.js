@@ -3,6 +3,11 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const app = express();
+const cors = require('cors'); 
+
+app.use(cors());
+
+app.use(express.static(__dirname));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
@@ -56,56 +61,124 @@ const shoesSchema = new mongoose.Schema({
     name: String,
     price: String,
     description: String,
+    stock: Number, // Add a stock field to your schema
 });
 
 const shoes = mongoose.model("shoes", shoesSchema);
-
-app.post("/addShoe", isAuthenticated, function(req, res) {
-    let newShoe = new shoes({
-        name: req.body.name,
-        price: req.body.price,
-        description: req.body.description,
-    });
-
-    newShoe.save()
-        .then(() => {
-            res.redirect('/shop.html');
-        })
-        .catch((error) => {
-            console.error(error);
-            res.status(500).send("Error adding the shoe");
-        });
+/*
+app.post("/addShoe", isAuthenticated, async function (req, res) {
+    const shoeData = req.body; // Assuming your form fields correspond to the shoe schema
+    // Create a new shoe based on the request data
+    const newShoe = new shoes(shoeData);
+    
+    try {
+        const savedShoe = await newShoe.save();
+        // Redirect to a new page upon successful addition
+        res.redirect('/addshoe.html');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error adding the shoe to the database.");
+    }
 });
+*/
+app.post("/addShoe", isAuthenticated, async function (req, res) {
+    const shoeData = req.body;
+    const stock = parseInt(shoeData.stock);
+
+    // Check if the requested stock is greater than 0
+    if (stock <= 0) {
+        return res.status(400).send("Stock must be greater than 0.");
+    }
+
+    // Create a new shoe and save it to the database
+    const newShoe = new shoes(shoeData);
+    try {
+        const savedShoe = await newShoe.save();
+
+        // Update the available stock for the requested shoe
+        savedShoe.stock = stock;
+        await savedShoe.save();
+
+        // Add the item to the shopping cart
+        let newCartItem = {
+            name: savedShoe.name,
+            price: savedShoe.price,
+            stock,
+        };
+
+        // Check if the user has a shopping cart in the session
+        req.session.shoppingCart = req.session.shoppingCart || [];
+
+        // Here, you should add a check to see if the item already exists in the cart
+        // If it does, update the stock instead of adding a new item
+        const existingCartItem = req.session.shoppingCart.find(item => item.name === newCartItem.name);
+        if (existingCartItem) {
+            existingCartItem.stock += newCartItem.stock;
+        } else {
+            req.session.shoppingCart.push(newCartItem);
+        }
+
+        res.redirect('/addshoe.html');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error adding the shoe to the database.");
+    }
+});
+
+
+
+
+
+app.post('/checkout', (req, res) => {
+    // Retrieve cart items from the request
+    const { cartItems } = req.body;
+
+    // Calculate the total cost and perform the purchase
+    const totalCost = calculateTotalCost(cartItems); // Implement this function
+    const stockCheck = validateStock(cartItems); // Implement this function
+
+    if (!stockCheck) {
+        return res.status(400).send('Not enough stock available.');
+    }
+
+    // Perform the purchase (e.g., update database, clear cart, etc.)
+    performPurchase(cartItems); // Implement this function
+
+    // Respond to the client
+    res.sendStatus(200);
+});
+
+
 
 app.get("/shoes", function (req, res) {
     // Fetch shoe data from your database
-    shoes.find({}, (err, shoes) => {
-        if (err) {
-            console.error(err);
-            res.status(500).json({ error: "Error fetching shoe data" });
-        } else {
-            // Send the shoe data as JSON
-            res.json(shoes);
-        }
+    shoes.find({}).exec()
+    .then((shoes) => {
+        // Handle successful retrieval of shoes
+        res.json(shoes);
+    })
+    .catch((err) => {
+        // Handle any errors that occur during retrieval
+        console.error(err);
+        res.status(500).json({ error: "Error fetching shoe data" });
     });
 });
 
-
-app.delete("/deleteShoe/:id", (req, res) => {
+app.delete("/deleteShoe/:id", async (req, res) => {
     const shoeId = req.params.id; // Extract the shoe ID from the URL
-    
-    // Use Mongoose to delete the shoe from the database
-    shoes.findByIdAndRemove(shoeId, (err) => {
-        if (err) {
-            console.error("Failed to delete the shoe:", err);
-            res.status(500).send("Failed to delete the shoe.");
-        } else {
-            // Send a success response
-            res.sendStatus(200);
-        }
-    });
-});
 
+    try {
+        const deletedShoe = await shoes.findByIdAndRemove(shoeId);
+        if (deletedShoe) {
+            res.sendStatus(200);
+        } else {
+            res.status(404).send("Shoe not found");
+        }
+    } catch (err) {
+        console.error("Failed to delete the shoe:", err);
+        res.status(500).send("Failed to delete the shoe.");
+    }
+});
 
 function isAuthenticated(req, res, next) {
     if (req.session.authenticated)  {
@@ -161,7 +234,6 @@ app.post("/login", async function(req, res) {
         res.status(500).send("Internal Server Error");
     }
 });
-
 
 app.listen(5500, () => {
     console.log("Server started on port 5500");
