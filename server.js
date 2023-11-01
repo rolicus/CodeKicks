@@ -217,6 +217,10 @@ app.get('/images/logo2-2.jpg', function (req, res) {
     res.sendFile(__dirname + '/images/logo2-2.jpg');
 });
 
+app.get('/addshoe.html', isAuthenticated, function (req, res) {
+    res.sendFile(__dirname + '/addshoe.html');
+});
+
 app.post("/login", async function(req, res) {
     const { email, password } = req.body;
 

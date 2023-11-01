@@ -134,4 +134,48 @@
         }
     </script>
 </body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Shop</title>
+        <link rel="stylesheet" href="css/navbar.css">
+        <link rel="stylesheet" href="css/shop.css"> <!-- Add the path to your shop CSS file -->
+    </head>
+    <body>
+        <ul class="navbar">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="aboutus.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="login.html">Login</a></li>
+        </ul>
+        <h1>Shop</h1>
+        <!-- Add a form to add shoes -->
+        <h2>Add a New Shoe</h2>
+        <form action="/addShoe" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br><br>
+
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" required><br><br>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required></textarea><br><br>
+
+            <!-- Add other shoe properties as needed -->
+
+            <input type="submit" value="Add Shoe">
+        </form>
+
+        <!-- Display a list of available shoes -->
+        <h2>Available Shoes</h2>
+        <ul id="shoeList">
+            <!-- You can dynamically generate this list using JavaScript or server-side code -->
+        </ul>
+
+        <hr>
+        <footer>
+            <p>&copy; 2023 CodeKicks</p>
+        </footer>
+    </body>
 </html>
