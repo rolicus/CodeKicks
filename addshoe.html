@@ -21,7 +21,7 @@
     </footer>
 
     <!-- Shoe addition form goes here -->
-    <form id="shoeForm" action="/addShoe" method="post">
+    <form id="shoeForm" action="/addShoe" method="post" enctype="multipart/form-data">
         <h2>Add Shoe</h2>
         <label for="name">Shoe Name:</label>
         <input type="text" id="name" name="name" required><br><br>
@@ -34,6 +34,9 @@
 
         <label for="stock">Stock:</label>
         <input type="number" id="stock" name="stock" required><br><br>
+
+        <label for="shoeImage">Shoe Image:</label>
+        <input type="file" id="shoeImage" name="shoeImage" accept="image/*" required><br><br>
 
         <button type="submit">Add Shoe</button>
     </form>
@@ -62,7 +65,7 @@
                 }
             });
         });
-        
+
         // Simulate authentication state (replace with actual logic)
         const userIsAuthenticated = true; // Change to false when the user is not authenticated
 
@@ -71,7 +74,7 @@
 
         if (userIsAuthenticated) {
             // If the user is authenticated, show the "Add Shoe" link
-            addShoeLink.style ;display = "inline";
+            addShoeLink.style.display = "inline";
 
             // Show the "Delete Shoe" option
             document.getElementById("deleteShoeOption").style.display = "block";

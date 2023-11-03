@@ -1,0 +1,78 @@
+/* Reset some default styles to ensure consistency across browsers */
+body, div, h1, p, video {
+    margin: 0;
+    padding: 0;
+}
+
+/* Style the video container */
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Style the video background */
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+/* Style the video element itself */
+.video-background video {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+/* Style the navigation bar */
+.navbar {
+    background-color: transparent;
+    overflow: hidden;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    list-style-type: none;
+}
+
+/* Style the navbar links on the top right */
+.navbar li {
+    float: right;
+    color: #FFFFFF;
+    padding: 16px;
+    font-size: 24px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 0.5s;
+}
+
+.navbar a {
+    text-decoration: none !important;
+    font-size: 20px;
+    padding: 20px 20px;
+    animation: rainbow 2s infinite; /* Add rainbow color animation */
+}
+
+/* Apply a rainbow color effect on hover */
+@keyframes rainbow {
+    0% { color: red; }
+    14% { color: orange; }
+    28% { color: yellow; }
+    42% { color: green; }
+    57% { color: blue; }
+    71% { color: indigo; }
+    85% { color: violet; }
+    100% { color: red; }
+}
+
+/* Style the logo on the left side */
+.navbar .logo {
+    float: left;
+    padding: 16px;
+}

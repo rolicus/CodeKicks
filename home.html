@@ -1,29 +1,28 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Page Title</title>
-        <link rel="stylesheet" href="css/navbar.css">
-    </head>
+<head>
+    <title>Page Title</title>
+    <link rel="stylesheet" href="css/home.css">
+</head>
 
-    <body>
-        <ul class="navbar">
-            <li><a href="home.html">Home</a></li>
-            <li><a href="shop.html">Shop</a></li>
-            <li><a href="aboutus.html">About Us</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
-            <li><a href="login.html">Login</a></li>
-            <% if (userLoggedIn) { %>
-                <li><a href="addshoe.html">Add Shoe</a></li>
-            <% } %>
-            <% if (userLoggedIn) { %>
-                <li><a href="useraccountpage.html">My Account</a></li>
-            <% } %>
-        </ul>
-        <img src="images/logo2-2.jpg" height="300px" img>    
-        <hr>
-        <footer>
-            <p>&copy; 2023 CodeKicks</p>
-        </footer>
-    </body>
-
+<body>
+    <div class="video-container">
+        <div class="video-background">
+            <video autoplay muted loop playsinline>
+                <source src="images/playboi.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+    <ul class="navbar">
+        <li class="logo"><img src="images/logo2-2.jpg" height="50px" alt="Logo"></li>
+        <li class="navbar-right"><a href="home.html">Home</a></li>
+        <li class="navbar-right"><a href="shop.html">Shop</a></li>
+        <li class="navbar-right"><a href="useraccountpage.html">Account</a></li>
+        <li class="navbar-right"><a href="aboutus.html">About Us</a></li>
+        <li class="navbar-right"><a href="contact.html">Contact Us</a></li>
+        <li class="navbar-right"><a href="login.html">Login</a></li>
+        <li class="navbar-right"><a href="addshoe.html">Add Shoe</a></li>
+    </ul>
+</body>
 </html>
