@@ -15,14 +15,11 @@
         <!-- Update the href attribute to point to "addshoe.html" -->
         <li><a href="addshoe.html" id="addShoeLink" style="display: none;">MY SHOES</a></li>
     </ul>
-    <hr>
-    <footer>
-        <p>&copy; 2023 CodeKicks</p>
-    </footer>
 
     <!-- Shoe addition form goes here -->
     <form id="shoeForm" action="/addShoe" method="post" enctype="multipart/form-data">
         <h2>Add Shoe</h2>
+        <hr>
         <label for="name">Shoe Name:</label>
         <input type="text" id="name" name="name" required><br><br>
 
@@ -134,5 +131,11 @@
                 });
         }
     </script>
+
+    <hr>
+    <footer>
+        <p>&copy; 2023 CodeKicks</p>
+    </footer>
+
 </body>
 </html>
