@@ -22,6 +22,17 @@
         <!-- Selected items will be displayed here -->
     </ul>
     
+    <form id="paymentForm" method ="post">
+        <h2>Payment Information</h2>
+        <label for="cardNumber">Card Number:</label>
+        <input type="text" id="cardNumber" name="cardNumber" required>
+        <br>
+        <label for="expDate">Expiration Date:</label>
+        <input type="text" id="expDate" name="expDate" required>
+        <br>
+        <button type="submit">Process Payment</button>
+    </form>
+
     <hr>
     <footer>
         <p>&copy; 2023 CodeKicks</p>
@@ -50,6 +61,38 @@
             // Handle the case where the cart is empty or not found
             shoppingCart.textContent = 'Your shopping cart is empty.';
         }
+
+        // Add event listener for the payment form submission
+        const paymentForm = document.getElementById('paymentForm');
+        paymentForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            // Retrieve payment information
+            const cardNumber = document.getElementById('cardNumber').value;
+            const expDate = document.getElementById('expDate').value;
+
+            // Retrieve cart data from session storage
+            const cart = JSON.parse(sessionStorage.getItem('cart'));
+
+            // Send payment information and cart data to the server for processing
+            const response = await fetch('/process-payment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ cardNumber, expDate, cart })
+            });
+
+            if (response.ok) {
+                // Payment was successful
+                alert('Payment successful!');
+                sessionStorage.removeItem('cart'); // Clear the cart
+                location.href = 'home.html'; // Redirect to home page
+            } else {
+                // Payment failed
+                alert('Payment failed. Please try again.');
+            }
+        });
     </script>
 </body>
 </html>

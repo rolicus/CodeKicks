@@ -4,14 +4,41 @@
     <title>My Account</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="css/navbar.css">
+    <style>
+        /* Add CSS for styling the shoe list and images here */
+        .user-shoes {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .shoe {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            max-width: 300px;
+        }
+
+        .shoe img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .delete-button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav>
-            <ul class = "navbar">
+            <ul class="navbar">
                 <li><a href="home.html">Home</a></li>
                 <li><a href="addshoepage.html">Add Shoe</a></li>
-                <li><a href="logout.html">Log Out</a></li>
+                <li><a href="/logout">Log Out</a></li>
             </ul>
             <h1>My Account</h1>
         </nav>
@@ -20,33 +47,95 @@
         <section>
             <h2>User Information</h2>
             <div class="user-info">
-                <p><strong>Name:</strong> NAME FROM DATABASE </p>
-                <p><strong>Email:</strong> EMAIL FROM DATABASE</p>
-                <p><strong>Address:</strong> ADDRESS FROM DATABASE</p>
+                <p><strong>Name:</strong> <span id="userName"></span></p>
+                <p><strong>Email:</strong> <span id="userEmail"></span></p>
+                <p><strong>Address:</strong> <span id="userAddress"></span></p>
             </div>
         </section>
         <section>
-            <h2>Your Shoes</h2>
-            <ul class="shoe-list">
-                <li class="shoe-list-item">
-                    <h3>Shoe 1</h3>
-                    <p><strong>Brand:</strong> BRAND FROM DATABASE</p>
-                    <p><strong>Color:</strong> COLOR FROM DATABASE</p>
-                    <p><strong>Size:</strong> SIZE FROM DATABASE</p>
-                    <p><strong>Price:</strong> PRICE FROM DATABASE</p>
-                    <button class="delete-button">Delete</button>
-                </li>
-                <li class="shoe-list-item">
-                    <h3>Shoe 2</h3>
-                    <p><strong>Brand:</strong> Adidas</p>
-                    <p><strong>Color:</strong> Blue</p>
-                    <p><strong>Size:</strong> 9</p>
-                    <p><strong>Price:</strong> $80</p>
-                    <button class="delete-button">Delete</button>
-                </li>
-                <!-- Add more shoe list items as needed -->
-            </ul>
+            <h2>My Shoes</h2>
+            <div class="user-shoes" id="userShoesList">
+                <!-- Shoes added by the user will be displayed here -->
+            </div>
         </section>
     </main>
+
+    <script>
+        // Fetch user information and update the DOM
+        fetch('/user-info') // Replace with the actual endpoint to fetch user info
+            .then(response => response.json())
+            .then(data => {
+                const userName = document.getElementById('userName');
+                const userEmail = document.getElementById('userEmail');
+                const userAddress = document.getElementById('userAddress');
+
+                userName.textContent = data.name; // Replace with the correct field name
+                userEmail.textContent = data.email; // Replace with the correct field name
+                userAddress.textContent = data.address; // Replace with the correct field name
+            })
+            .catch(error => {
+                console.error('Error fetching user information:', error);
+            });
+
+        // Fetch and display the user's shoes
+        fetch('/my-shoes') // Replace with the actual endpoint to fetch user's shoes
+            .then(response => response.json())
+            .then(userShoes => {
+                const userShoesList = document.getElementById('userShoesList');
+
+                userShoes.forEach(shoe => {
+                    const shoeDiv = document.createElement('div');
+                    shoeDiv.className = 'shoe';
+
+                    const nameElement = document.createElement('h3');
+                    nameElement.textContent = shoe.name;
+                    shoeDiv.appendChild(nameElement);
+
+                    const priceElement = document.createElement('p');
+                    priceElement.innerHTML = `<strong>Price:</strong> ${shoe.price}`;
+                    shoeDiv.appendChild(priceElement);
+
+                    const descriptionElement = document.createElement('p');
+                    descriptionElement.innerHTML = `<strong>Description:</strong> ${shoe.description}`;
+                    shoeDiv.appendChild(descriptionElement);
+
+                    const stockElement = document.createElement('p');
+                    stockElement.innerHTML = `<strong>Stock:</strong> ${shoe.stock}`;
+                    shoeDiv.appendChild(stockElement);
+
+                    const imageElement = document.createElement('img');
+                    imageElement.src = `/uploads/${shoe.image}`;
+                    imageElement.alt = 'Shoe Image';
+                    shoeDiv.appendChild(imageElement);
+
+                    const deleteButton = document.createElement('button');
+                    deleteButton.className = 'delete-button';
+                    deleteButton.textContent = 'Delete';
+                    deleteButton.addEventListener('click', () => {
+                        // Add code to delete the shoe
+                        fetch(`/delete-shoe/${shoe._id}`, { method: 'DELETE' }) // Replace with the actual endpoint for deleting a shoe
+                            .then(response => {
+                                if (response.status === 200) {
+                                    // The shoe was successfully deleted
+                                    // You may want to remove the shoe's HTML element from the DOM
+                                    shoeDiv.remove();
+                                } else {
+                                    // Handle errors or display a message if deletion fails
+                                    console.error('Failed to delete the shoe');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error deleting the shoe:', error);
+                            });
+                    });
+                    shoeDiv.appendChild(deleteButton);
+
+                    userShoesList.appendChild(shoeDiv);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching user\'s shoes:', error);
+            });
+    </script>
 </body>
 </html>

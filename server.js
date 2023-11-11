@@ -9,6 +9,8 @@ const cors = require('cors');
 app.use(cors());
 
 app.use(express.static(__dirname));
+app.use(bodyParser.json());
+
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(session({
@@ -59,11 +61,16 @@ app.post("/signup", function (req, res) {
 });
 
 const shoesSchema = new mongoose.Schema({
+  brand: String,
   name: String,
+  size: Number,
   price: String,
-  description: String,
   stock: Number,
   image: String, // Add a field to store the image file name
+  addedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'users',
+  }
 });
 
 const shoes = mongoose.model("shoes", shoesSchema);
@@ -79,11 +86,13 @@ app.post('/addShoe', isAuthenticated, upload.single('shoeImage'), async function
 
   // Create a new shoe and save it to the database
   const newShoe = new shoes({
+    brand: req.body.brand,
     name: req.body.name,
+    size: req.body.size,
     price: req.body.price,
-    description: req.body.description,
     image: req.file.filename, // Store the image file name
     stock: stock,
+    addedBy: req.session.user._id,
   });
 
   try {
@@ -95,8 +104,11 @@ app.post('/addShoe', isAuthenticated, upload.single('shoeImage'), async function
 
     // Add the item to the shopping cart
     let newCartItem = {
+      brand: savedShoe.brand,
       name: savedShoe.name,
+      size: savedShoe.size,
       price: savedShoe.price,
+      image: savedShoe.filename,
       stock,
     };
 
@@ -152,21 +164,108 @@ app.get("/shoes", function (req, res) {
     });
 });
 
-app.delete("/deleteShoe/:id", async (req, res) => {
-  const shoeId = req.params.id; // Extract the shoe ID from the URL
-
+app.get('/user-info', isAuthenticated, async (req, res) => {
   try {
-    const deletedShoe = await shoes.findByIdAndRemove(shoeId);
-    if (deletedShoe) {
-      res.sendStatus(200);
-    } else {
-      res.status(404).send("Shoe not found");
+    // Fetch user information from the database based on the user's session or ID
+    const user = await users.findOne({ _id: req.session.user._id });
+
+    if (!user) {
+      console.log('User not found');
+      return res.status(404).json({ error: 'User not found' });
     }
+
+    // Combine the 'firstName' and 'lastName' fields into a 'name' field
+    const name = user.firstName + ' ' + user.lastName;
+
+    // Send the user's information as JSON response with the 'name' field
+    res.json({
+      name: name, // Combine 'firstName' and 'lastName' into 'name'
+      address: user.address,
+      email: user.email,
+      // Add other user fields as needed
+    });
   } catch (err) {
-    console.error("Failed to delete the shoe:", err);
-    res.status(500).send("Failed to delete the shoe.");
+    console.error('Error fetching user information:', err);
+    return res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+app.get('/my-shoes', isAuthenticated, async (req, res) => {
+  try {
+    // Fetch shoes added by the currently logged-in user
+    const userShoes = await shoes.find({ addedBy: req.session.user._id });
+
+    res.json(userShoes);
+  } catch (err) {
+    console.error("Error fetching user's shoes:", err);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.delete('/delete-shoe/:id', isAuthenticated, async (req, res) => {
+  const shoeId = req.params.id;
+
+  try {
+      const deletedShoe = await shoes.findByIdAndDelete(shoeId);
+
+      if (deletedShoe) {
+          // Successfully deleted the shoe
+          res.status(200).send('Shoe deleted.');
+      } else {
+          // Shoe not found or deletion failed
+          res.status(404).send('Shoe not found.');
+      }
+  } catch (error) {
+      console.error('Error deleting the shoe:', error);
+      res.status(500).send('Internal Server Error');
+  }
+});
+
+
+// Define the simulatePaymentProcessing function at the top level of your code
+function simulatePaymentProcessing(cardNumber, expDate) {
+  // In a real application, you should implement your actual payment processing logic here.
+  // For this example, we'll simulate a successful payment if the card number is valid.
+  const validCardNumber = '1234567890123456';
+  const validExpDate = '12/25';
+
+  if (cardNumber === validCardNumber && expDate === validExpDate) {
+    return true; // Payment is successful
+  } else {
+    return false; // Payment failed
+  }
+}
+
+
+
+app.post('/process-payment', async (req, res) => {
+  // Retrieve payment information from the request body
+  const { cardNumber, expDate, cart } = req.body;
+
+  // Simulate payment processing logic here (e.g., validate card number, expiration date, etc.)
+  const isPaymentSuccessful = simulatePaymentProcessing(cardNumber, expDate);
+
+  if (isPaymentSuccessful) {
+    // Payment is successful, so delete purchased shoes from the database
+    try {
+      // Create an array of shoe IDs to delete
+      const shoeIdsToDelete = cart.map(item => item.shoe._id);
+
+      // Use Mongoose to delete the shoes with matching IDs
+      await shoes.deleteMany({ _id: { $in: shoeIdsToDelete } });
+
+      res.sendStatus(200); // Send a success response
+    } catch (error) {
+      console.error('Failed to delete purchased shoes:', error);
+      res.status(500).json({ error: 'Failed to delete purchased shoes' });
+    }
+  } else {
+    // Payment failed, respond with an error status
+    res.status(400).json({ error: 'Payment failed' });
+  }
+});
+
+
 
 function isAuthenticated(req, res, next) {
   if (req.session.authenticated) {
@@ -218,6 +317,7 @@ app.post("/login", async function (req, res) {
     const foundUser = await users.findOne({ email, password }).exec();
 
     if (foundUser) {
+      req.session.user = foundUser;
       req.session.authenticated = true;
       res.redirect("/home.html");
     } else {
@@ -227,6 +327,18 @@ app.post("/login", async function (req, res) {
     console.error(err);
     res.status(500).send("Internal Server Error");
   }
+});
+
+app.get('/logout', (req, res) => {
+  // Clear the user's session or perform necessary logout actions
+  req.session.destroy(err => {
+    if (err) {
+      console.error('Error destroying session:', err);
+      res.sendStatus(500); // Handle the error as needed
+    } else {
+      res.redirect('/home.html'); // Redirect to the home page or a login page
+    }
+  });
 });
 
 app.listen(5500, () => {
