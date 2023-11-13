@@ -76,3 +76,29 @@ body, div, h1, p, video {
     float: left;
     padding: 16px;
 }
+
+/* Add CSS for styling the footer here */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+footer a {
+    text-decoration: none;
+    color: white;
+}
+
+/* Add CSS for styling the cart icon here */
+.cart-icon img {
+    width: 30px; /* Adjust the size as needed */
+    height: 30px;
+}
