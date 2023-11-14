@@ -1,0 +1,38 @@
+
+        body {
+            background-color: black; /* Dark background color */
+            color: #ffffff; /* White text color */
+            font-family: 'Your Chosen Font', sans-serif; /* Specify your font */
+        }
+
+        header {
+            background-color: black; /* Darker background color for the header */
+        }
+
+        .navbar {
+            background-color: white; /* Dark background color for the navbar */
+            color: black; /* White text color */
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        h2 {
+            color: #ff4500; /* Orange color for the section headings */
+        }
+
+        .user-info,
+        .shoe {
+            background-color: transparent; /* Transparent background color */
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .delete-button {
+            background-color: #ff4500; /* Orange color for the delete button */
+            color: #ffffff; /* White text color for the delete button */
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
