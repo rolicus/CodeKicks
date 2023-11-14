@@ -53,7 +53,8 @@
                     data.forEach((shoe) => {
                         const listItem = document.createElement("li");
                         listItem.innerHTML = `
-                            <h3>${shoe.name}</h3>
+                            <h3>${shoe.brand}</h3>
+                            <p>${shoe.name}</p>
                             <p>Price: $${shoe.price}</p>
                             <p>Description: ${shoe.description}</p>
                             <p>Stock: ${shoe.stock}</p>
@@ -66,14 +67,22 @@
                         quantityInput.min = "1";
                         quantityInput.value = "1";
 
+                        const addButtonContainer = document.createElement("div");
+                        addButtonContainer.classList.add("add-to-cart-container");
+
                         const addButton = document.createElement("button");
                         addButton.textContent = "Add to Cart";
+                        addButton.classList.add("add-to-cart-button");
                         addButton.addEventListener("click", () => {
                             // Call the addToCart function with the selected shoe
                             addToCart(shoe, quantityInput);
                         });
 
+                        addButtonContainer.appendChild(quantityInput);
+                        addButtonContainer.appendChild(addButton);
+
                         listItem.appendChild(quantityInput);
+                        listItem.appendChild(addButtonContainer);
                         listItem.appendChild(addButton);
 
                         shoeList.appendChild(listItem);

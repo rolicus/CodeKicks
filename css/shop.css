@@ -3,18 +3,22 @@
     padding: 0;
     display: flex;
     flex-wrap: wrap; /* Allow items to wrap to the next line if there's not enough space */
+    text-align: center;
 }
 
 #shoeList li {
     flex: 0 0 30%; /* Adjust the width as needed */
     margin: 10px; /* Adjust the margin as needed for spacing between items */
     box-sizing: border-box;
+    text-align: center;
 }
 
 #shoeList img {
-    width: 100%;
-    height: auto;
+    width: 200px; /* Set the width to a fixed value */
+    height: 200px; /* Set the height to a fixed value */
+    margin-bottom: 10px;
 }
+
 
 
 body {
@@ -53,4 +57,29 @@ h2 {
     border: none;
     padding: 5px 10px;
     cursor: pointer;
+}
+
+.add-to-cart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.quantity-input {
+    width: 50px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+.add-to-cart-button {
+    width: 100px;
+    height: 40px;
+    border: 2px solid yellow;
+    border-radius: 15px;
+    background: none;
+    color: yellow;
+    cursor: pointer;
+    margin-top: 10px;
 }

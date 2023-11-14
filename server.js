@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const app = express();
 const cors = require('cors');
+const sharp = require('sharp');
 
 app.use(cors());
 
@@ -75,6 +76,7 @@ const shoesSchema = new mongoose.Schema({
 
 const shoes = mongoose.model("shoes", shoesSchema);
 
+
 app.post('/addShoe', isAuthenticated, upload.single('shoeImage'), async function (req, res) {
   const shoeData = req.body;
   const stock = parseInt(shoeData.stock);
@@ -84,18 +86,24 @@ app.post('/addShoe', isAuthenticated, upload.single('shoeImage'), async function
     return res.status(400).send('Stock must be greater than 0.');
   }
 
-  // Create a new shoe and save it to the database
-  const newShoe = new shoes({
-    brand: req.body.brand,
-    name: req.body.name,
-    size: req.body.size,
-    price: req.body.price,
-    image: req.file.filename, // Store the image file name
-    stock: stock,
-    addedBy: req.session.user._id,
-  });
-
   try {
+    // Use sharp to resize the uploaded image
+    const resizedImagePath = `uploads/resized-${req.file.filename}`;
+    await sharp(req.file.path)
+      .resize(300, 300)
+      .toFile(resizedImagePath);
+
+    // Create a new shoe and save it to the database
+    const newShoe = new shoes({
+      brand: req.body.brand,
+      name: req.body.name,
+      size: req.body.size,
+      price: req.body.price,
+      image: resizedImagePath, // Store the path of the resized image
+      stock: stock,
+      addedBy: req.session.user._id,
+    });
+
     const savedShoe = await newShoe.save();
 
     // Update the available stock for the requested shoe
@@ -108,7 +116,7 @@ app.post('/addShoe', isAuthenticated, upload.single('shoeImage'), async function
       name: savedShoe.name,
       size: savedShoe.size,
       price: savedShoe.price,
-      image: savedShoe.filename,
+      image: savedShoe.image, // Use the resized image path
       stock,
     };
 
@@ -129,6 +137,11 @@ app.post('/addShoe', isAuthenticated, upload.single('shoeImage'), async function
     console.error(error);
     res.status(500).send('Error adding the shoe to the database.');
   }
+});
+
+app.get('/check-authentication', (req, res) => {
+  const isAuthenticated = req.session.authenticated === true;
+  res.json({ isAuthenticated });
 });
 
 app.post('/checkout', (req, res) => {
@@ -274,6 +287,14 @@ function isAuthenticated(req, res, next) {
     res.redirect('/login.html');
   }
 }
+
+app.get('/addshoe.html', function (req, res) {
+  if (req.session.authenticated) {
+      res.sendFile(__dirname + '/addshoe.html');
+  } else {
+      res.redirect('/login.html');
+  }
+});
 
 app.use(express.static('uploads')); // Serve uploaded images
 

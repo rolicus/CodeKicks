@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Shoe</title>
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/addshoe.css"> <!-- Include your custom CSS -->
@@ -57,7 +59,7 @@
         document.addEventListener("DOMContentLoaded", function () {
             const stockInput = document.getElementById("stock");
             const shoeForm = document.getElementById("shoeForm");
-
+    
             shoeForm.addEventListener("submit", function (event) {
                 const stockValue = parseInt(stockInput.value);
                 if (isNaN(stockValue) || stockValue <= 0) {
@@ -65,21 +67,68 @@
                     alert("Stock must be a positive number.");
                 }
             });
+    
+            // Client-side image resizing
+            document.getElementById("shoeImage").addEventListener("change", function (event) {
+                const fileInput = event.target;
+                const file = fileInput.files[0];
+    
+                if (file) {
+                    resizeImage(file, function (resizedImage) {
+                        // Set the value of the file input to the resized image
+                        fileInput.value = resizedImage;
+                    });
+                }
+            });
+    
+            function resizeImage(file, callback) {
+                const reader = new FileReader();
+    
+                reader.onload = function (e) {
+                    const img = new Image();
+    
+                    img.onload = function () {
+                        const canvas = document.createElement("canvas");
+                        const ctx = canvas.getContext("2d");
+    
+                        // Set a fixed size for the images
+                        const fixedWidth = 200;
+                        const fixedHeight = 200;
+    
+                        // Set the canvas dimensions to the fixed size
+                        canvas.width = fixedWidth;
+                        canvas.height = fixedHeight;
+    
+                        // Draw the image on the canvas with fixed dimensions
+                        ctx.drawImage(img, 0, 0, fixedWidth, fixedHeight);
+    
+                        // Convert the canvas content to a base64-encoded data URL
+                        const resizedImage = canvas.toDataURL("image/jpeg");
+    
+                        // Invoke the callback with the resized image
+                        callback(resizedImage);
+                    };
+    
+                    img.src = e.target.result;
+                };
+    
+                reader.readAsDataURL(file);
+            }
         });
-
+    
         // Simulate authentication state (replace with actual logic)
         const userIsAuthenticated = true; // Change to false when the user is not authenticated
-
+    
         // This variable will control the visibility of the "Add Shoe" link
         const addShoeLink = document.querySelector("a[href='addshoe.html']");
-
+    
         if (userIsAuthenticated) {
             // If the user is authenticated, show the "Add Shoe" link
             addShoeLink.style.display = "inline";
-
+    
             // Show the "Delete Shoe" option
             document.getElementById("deleteShoeOption").style.display = "block";
-
+    
             // Function to fetch shoe data and populate the dropdown
             function populateShoeDropdown() {
                 fetch('/shoes')
@@ -100,25 +149,25 @@
                         console.error(error);
                     });
             }
-
+    
             // Call the populateShoeDropdown function to fill the dropdown
             populateShoeDropdown();
         } else {
             // If the user is not authenticated, hide the "Add Shoe" link
             addShoeLink.style.display = "none";
         }
-
+    
         // Add the JavaScript function for deleting a shoe
         function deleteShoe() {
             const select = document.getElementById("shoeToDelete");
             const selectedShoeId = select.value;
-
+    
             // Confirm with the user before deleting
             const confirmDelete = confirm("Are you sure you want to delete this shoe?");
             if (!confirmDelete) {
                 return; // Do nothing if the user cancels the delete operation
             }
-
+    
             // Send a request to your server to delete the selected shoe
             fetch(`/deleteShoe/${selectedShoeId}`, { method: "DELETE" })
                 .then(response => {
@@ -135,11 +184,12 @@
                 });
         }
     </script>
-
+    
     <hr>
     <footer>
         <p>&copy; 2023 CodeKicks</p>
     </footer>
 
+    <!-- Client-side image resizing -->
 </body>
 </html>
