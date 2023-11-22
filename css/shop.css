@@ -83,3 +83,26 @@ h2 {
     cursor: pointer;
     margin-top: 10px;
 }
+
+ /* Modal Styling */
+ .modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    z-index: 1000;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.modal select {
+    margin-bottom: 10px;
+}
+
+.modal button {
+    padding: 10px;
+    cursor: pointer;
+}
