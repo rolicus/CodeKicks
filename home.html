@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <title>Page Title</title>
@@ -23,7 +23,6 @@
         <li class="navbar-right"><a href="addshoe.html">Sell</a></li>
         <li class="navbar-right"><a href="shop.html">Shop</a></li>
         <li class="navbar-right"><a href="home.html">Home</a></li>
-
     </ul>
 
     <!-- Footer section -->
@@ -36,22 +35,49 @@
         </nav>
         <p>&copy; 2023 CodeKicks</p>
     </footer>
+
     <script>
-    let prevScrollPos = window.pageYOffset;
-    window.onscroll = function () {
-    const currentScrollPos = window.pageYOffset;
-    const navbar = document.querySelector('.navbar');
+        let prevScrollPos = window.pageYOffset;
+        window.onscroll = function () {
+            const currentScrollPos = window.pageYOffset;
+            const navbar = document.querySelector('.navbar');
 
-    if (prevScrollPos > currentScrollPos) {
-        navbar.style.top = '0';
-    } else {
-        navbar.style.top = `-${navbar.offsetHeight}px`;
-    }
+            if (prevScrollPos > currentScrollPos) {
+                navbar.style.top = '0';
+            } else {
+                navbar.style.top = `-${navbar.offsetHeight}px`;
+            }
 
-    prevScrollPos = currentScrollPos;
-    };
+            prevScrollPos = currentScrollPos;
+        };
+
+        // Add this code to your existing JavaScript logic
+        document.addEventListener('DOMContentLoaded', function () {
+            // Fetch authentication status from the server
+            fetch('/check-authentication')
+                .then(response => response.json())
+                .then(data => {
+                    const isAuthenticated = data.isAuthenticated;
+
+                    // Access the account link element
+                    const accountLink = document.getElementById('accountLink');
+                    const loginLink = document.getElementById('loginLink');
+
+                    // Show or hide the account link based on authentication status
+                    if (isAuthenticated) {
+                        accountLink.style.display = 'block';
+                        loginLink.style.display = 'none'; // Hide the login link
+                    } else {
+                        accountLink.style.display = 'none';
+                        loginLink.style.display = 'block'; // Show the login link
+                    }
+                })
+                .catch(error => {
+                    console.error('Error checking authentication status:', error);
+                });
+        });
     </script>
-    
+
 </body>
 
 </html>

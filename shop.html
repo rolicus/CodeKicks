@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/shop.css"> <!-- Add the path to your shop CSS file -->
 </head>
+
 <body>
     <ul class="navbar">
         <li><a href="home.html">Home</a></li>
@@ -17,24 +19,57 @@
     </ul>
     <h1>Shop</h1>
     <hr>
+
+    <!-- Filter section -->
+    <label for="brandFilter">Filter by Brand:</label>
+    <select id="brandFilter" onchange="applyFilter('brand')">
+        <option value="all">All</option>
+        <!-- Add your specific brand options here -->
+        <option value="nike">Nike</option>
+        <option value="adidas">Adidas</option>
+        <!-- Add more brand options as needed -->
+    </select>
+
+    <label for="sizeFilter">Filter by Size:</label>
+    <select id="sizeFilter" onchange="applyFilter('size')">
+        <option value="all">All Sizes</option>
+        <!-- Add size options from 5 to 13 -->
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+    </select>
+
+    <label for="priceFilter">Filter by Price:</label>
+    <select id="priceFilter" onchange="applyFilter('price')">
+        <option value="all">All Prices</option>
+        <option value="below100">Below $100</option>
+        <option value="100andabove">$100 and Above</option>
+    </select>
+
     <!-- Display a list of available shoes -->
     <h2>Available Shoes</h2>
     <ul id="shoeList">
         <!-- Shoes will be displayed here -->
     </ul>
-    
+
     <hr>
     <!-- Shopping cart section -->
     <h2>Shopping Cart</h2>
     <ul id="shoppingCart">
         <!-- Selected items will be displayed here -->
     </ul>
-    
+
     <!-- Checkout button -->
     <button onclick="redirectToCheckout()">Checkout</button>
 
     <hr>
-   <footer>
+    <footer>
         <nav>
             <ul>
                 <li><a href="aboutus.html">About Us</a></li>
@@ -55,52 +90,62 @@
                     // Clear any existing items in the list
                     shoeList.innerHTML = "";
 
-                    // Iterate through the shoe data and add items to the list
-                    data.forEach((shoe) => {
-                        const listItem = document.createElement("li");
-                        listItem.innerHTML = `
-                            <h3>${shoe.brand}</h3>
-                            <p>${shoe.name}</p>
-                            <p>Price: $${shoe.price}</p>
-                            <p>Description: ${shoe.description}</p>
-                            <p>Size: ${shoe.size}</p>
-                            <p>Stock: ${shoe.stock}</p>
-                            <img src="${shoe.image}" alt="${shoe.name}" style="max-width: 200px; max-height: 200px;">
-                        `;
+                    // Check if there are available shoes for the selected filter
+                    const filteredShoes = applyFilters(data);
 
-                        // Include an input field for quantity and a button to add the shoe to the cart
-                        const quantityInput = document.createElement("input");
-                        quantityInput.type = "number";
-                        quantityInput.min = "1";
-                        quantityInput.value = "1";
+                    if (filteredShoes.length === 0) {
+                        // Display a message when no shoes are available for the selected filter
+                        const notAvailableMessage = document.createElement("p");
+                        notAvailableMessage.textContent = "Not available.";
+                        shoeList.appendChild(notAvailableMessage);
+                    } else {
+                        // Iterate through the shoe data and add items to the list
+                        filteredShoes.forEach((shoe) => {
+                            const listItem = document.createElement("li");
+                            listItem.innerHTML = `
+                                <h3>${shoe.brand}</h3>
+                                <p>${shoe.name}</p>
+                                <p>Price: $${shoe.price}</p>
+                                <p>Description: ${shoe.description}</p>
+                                <p>Size: ${shoe.size}</p>
+                                <p>Stock: ${shoe.stock}</p>
+                                <img src="${shoe.image}" alt="${shoe.name}" style="max-width: 200px; max-height: 200px;">
+                            `;
 
-                        const addButtonContainer = document.createElement("div");
-                        addButtonContainer.classList.add("add-to-cart-container");
+                            // Include an input field for quantity and a button to add the shoe to the cart
+                            const quantityInput = document.createElement("input");
+                            quantityInput.type = "number";
+                            quantityInput.min = "1";
+                            quantityInput.value = "1";
 
-                        const addButton = document.createElement("button");
-                        addButton.textContent = "Add to Cart";
-                        addButton.classList.add("add-to-cart-button");
-                        addButton.addEventListener("click", () => {
-                            // Call the addToCart function with the selected shoe
-                            addToCart(shoe, quantityInput);
+                            const addButtonContainer = document.createElement("div");
+                            addButtonContainer.classList.add("add-to-cart-container");
+
+                            const addButton = document.createElement("button");
+                            addButton.textContent = "Add to Cart";
+                            addButton.classList.add("add-to-cart-button");
+                            addButton.addEventListener("click", () => {
+                                // Call the addToCart function with the selected shoe
+                                addToCart(shoe, quantityInput);
+                            });
+
+                            addButtonContainer.appendChild(quantityInput);
+                            addButtonContainer.appendChild(addButton);
+
+                            listItem.appendChild(quantityInput);
+                            listItem.appendChild(addButtonContainer);
+                            listItem.appendChild(addButton);
+
+                            shoeList.appendChild(listItem);
                         });
-
-                        addButtonContainer.appendChild(quantityInput);
-                        addButtonContainer.appendChild(addButton);
-
-                        listItem.appendChild(quantityInput);
-                        listItem.appendChild(addButtonContainer);
-                        listItem.appendChild(addButton);
-
-                        shoeList.appendChild(listItem);
-                    });
+                    }
                 })
                 .catch((error) => {
                     console.error("Error fetching shoes:", error);
                 });
         }
 
-        // Call the function to fetch and display shoe data
+        // Call the function to fetch and display shoe data when the page loads
         fetchShoeData();
 
         // Shopping cart functionality
@@ -109,12 +154,12 @@
 
         function addToCart(shoe, quantityInput) {
             const quantity = parseInt(quantityInput.value);
-            
+
             if (quantity <= 0) {
                 alert("Quantity must be greater than 0.");
                 return;
             }
-            
+
             if (quantity > shoe.stock) {
                 alert("Not enough stock available.");
                 return;
@@ -130,7 +175,7 @@
                     quantity
                 });
             }
-            
+
             updateCart();
         }
 
@@ -156,6 +201,48 @@
             sessionStorage.setItem('cart', JSON.stringify(cartItems));
             window.location.href = "checkout.html"; // Replace with the correct URL of your checkout page
         }
+
+        // New code for filtering functionality
+        let currentBrandFilter = 'all';
+        let currentSizeFilter = 'all';
+        let currentPriceFilter = 'all';
+
+        // Function to apply all filters
+        function applyFilters(data) {
+            return data.filter(shoe => {
+                return (currentBrandFilter === 'all' || shoe.brand.toLowerCase() === currentBrandFilter) &&
+                    (currentSizeFilter === 'all' || shoe.size.toString() === currentSizeFilter) &&
+                    (currentPriceFilter === 'all' ||
+                        (currentPriceFilter === 'below100' && shoe.price < 100) ||
+                        (currentPriceFilter === '100andabove' && shoe.price >= 100));
+            });
+        }
+
+        // Function to apply the filter
+        function applyFilter(filterType) {
+            // Get the selected filter value
+            const filterSelect = document.getElementById(`${filterType}Filter`);
+            switch (filterType) {
+                case 'brand':
+                    currentBrandFilter = filterSelect.value;
+                    break;
+                case 'size':
+                    currentSizeFilter = filterSelect.value;
+                    break;
+                case 'price':
+                    currentPriceFilter = filterSelect.value;
+                    break;
+                default:
+                    break;
+            }
+
+            // Call the fetchShoeData function to update the displayed shoes
+            fetchShoeData();
+        }
+
+        // Call the function to fetch and display shoe data when the page loads
+        fetchShoeData();
     </script>
 </body>
+
 </html>
