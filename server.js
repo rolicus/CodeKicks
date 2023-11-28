@@ -5,13 +5,11 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const app = express();
 const cors = require('cors');
-const sharp = require('sharp');
 
 app.use(cors());
 
 app.use(express.static(__dirname));
 app.use(bodyParser.json());
-
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(session({
@@ -76,7 +74,6 @@ const shoesSchema = new mongoose.Schema({
 
 const shoes = mongoose.model("shoes", shoesSchema);
 
-
 app.post('/addShoe', isAuthenticated, upload.single('shoeImage'), async function (req, res) {
   const shoeData = req.body;
   const stock = parseInt(shoeData.stock);
@@ -87,19 +84,13 @@ app.post('/addShoe', isAuthenticated, upload.single('shoeImage'), async function
   }
 
   try {
-    // Use sharp to resize the uploaded image
-    const resizedImagePath = `uploads/resized-${req.file.filename}`;
-    await sharp(req.file.path)
-      .resize(300, 300)
-      .toFile(resizedImagePath);
-
     // Create a new shoe and save it to the database
     const newShoe = new shoes({
       brand: req.body.brand,
       name: req.body.name,
       size: req.body.size,
       price: req.body.price,
-      image: resizedImagePath, // Store the path of the resized image
+      image: req.file.filename, // Store the original image file name
       stock: stock,
       addedBy: req.session.user._id,
     });
@@ -116,7 +107,7 @@ app.post('/addShoe', isAuthenticated, upload.single('shoeImage'), async function
       name: savedShoe.name,
       size: savedShoe.size,
       price: savedShoe.price,
-      image: savedShoe.image, // Use the resized image path
+      image: savedShoe.image, // Use the original image file name
       stock,
     };
 
@@ -234,7 +225,6 @@ app.delete('/delete-shoe/:id', isAuthenticated, async (req, res) => {
   }
 });
 
-
 // Define the simulatePaymentProcessing function at the top level of your code
 function simulatePaymentProcessing(cardNumber, expDate) {
   // In a real application, you should implement your actual payment processing logic here.
@@ -248,8 +238,6 @@ function simulatePaymentProcessing(cardNumber, expDate) {
     return false; // Payment failed
   }
 }
-
-
 
 app.post('/process-payment', async (req, res) => {
   // Retrieve payment information from the request body
@@ -277,8 +265,6 @@ app.post('/process-payment', async (req, res) => {
     res.status(400).json({ error: 'Payment failed' });
   }
 });
-
-
 
 function isAuthenticated(req, res, next) {
   if (req.session.authenticated) {

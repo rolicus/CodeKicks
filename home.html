@@ -6,15 +6,7 @@
     <link rel="stylesheet" href="css/home.css">
 </head>
 
-<body>
-    <div class="video-container">
-        <div class="video-background">
-            <video autoplay muted loop playsinline>
-                <source src="images/playboi.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
-    </div>
+<body class="without-padding">
     <ul class="navbar">
         <li class="logo"><img src="images/logo2-2.jpg" height="50px" alt="Logo"></li>
         <li class="navbar-right cart-icon"><a href="checkout.html"><img src="images/cart.jpg" alt="Shopping Cart"></a></li>
@@ -24,6 +16,49 @@
         <li class="navbar-right"><a href="shop.html">Shop</a></li>
         <li class="navbar-right"><a href="home.html">Home</a></li>
     </ul>
+    <div class="video-container">
+        <div class="video-background">
+            <video autoplay muted loop playsinline>
+                <source src="images/playboi.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+    <div class="text-over-video">
+        <h1>Welcome to CodeKicks</h1>
+        <p>Discover the latest trends in footwear</p>
+        <div class="shop-button"><span>Shop Shoes</span></div> <!-- Add this line for the button -->
+    </div>
+
+    <!-- Popular Brands Section -->
+    <section class="popular-brands">
+        <h2>Popular Brands</h2>
+        <div class="brand-container">
+            <!-- Brand 1 -->
+            <div class="brand">
+                <a href="shop.html"> <!-- Update the URL as needed -->
+                    <img src="images/docs.jpg" alt="Nike">
+                    <p>Dr. Martens</p>
+                </a>
+            </div>
+
+            <!-- Brand 2 -->
+            <div class="brand">
+                <a href="shop.html"> <!-- Update the URL as needed -->
+                    <img src="images/jordan.jpg" alt="Adidas">
+                    <p>Jordans</p>
+                </a>
+            </div>
+
+            <!-- Brand 3 -->
+            <div class="brand">
+                <a href="shop.html"> <!-- Update the URL as needed -->
+                    <img src="images/crocs.webp" alt="Puma">
+                    <p>Crocs</p>
+                </a>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer section -->
     <footer>
@@ -37,20 +72,6 @@
     </footer>
 
     <script>
-        let prevScrollPos = window.pageYOffset;
-        window.onscroll = function () {
-            const currentScrollPos = window.pageYOffset;
-            const navbar = document.querySelector('.navbar');
-
-            if (prevScrollPos > currentScrollPos) {
-                navbar.style.top = '0';
-            } else {
-                navbar.style.top = `-${navbar.offsetHeight}px`;
-            }
-
-            prevScrollPos = currentScrollPos;
-        };
-
         // Add this code to your existing JavaScript logic
         document.addEventListener('DOMContentLoaded', function () {
             // Fetch authentication status from the server
@@ -58,11 +79,11 @@
                 .then(response => response.json())
                 .then(data => {
                     const isAuthenticated = data.isAuthenticated;
-
+    
                     // Access the account link element
                     const accountLink = document.getElementById('accountLink');
                     const loginLink = document.getElementById('loginLink');
-
+    
                     // Show or hide the account link based on authentication status
                     if (isAuthenticated) {
                         accountLink.style.display = 'block';

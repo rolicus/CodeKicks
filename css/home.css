@@ -4,81 +4,116 @@ body, div, h1, p, video {
     padding: 0;
 }
 
-/* Style the video container */
-.video-container {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    margin-top: 70px;
-}
-
-/* Style the video background */
-.video-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-}
-
-/* Style the video element itself */
-.video-background video {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
+body {
+    background-color: black; /* Dark background color */
+    color: #ffffff; /* White text color */
+    font-family: 'Your Chosen Font', sans-serif; /* Specify your font */
+    margin: 0;
 }
 
 /* Style the navigation bar */
 .navbar {
-    background-color: white;
+    background-color: white; /* White background color for the navbar */
     overflow: hidden;
-    padding: 0;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 2;
-    list-style-type: none;
-    transition: top 0.3s;
+    padding: 10px 0; /* Adjust the padding as needed */
+    list-style-type: none; /* Remove default list styles */
+    margin: 0;
 }
 
 /* Style the navbar links on the top right */
 .navbar li {
     float: right;
-    color: #FFFFFF;
-    padding: 16px;
-    font-size: 24px;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: color 0.5s;
-    position: relative; /* Add this line */
 }
 
 .navbar a {
-    text-decoration: none !important;
-    font-size: 20px;
-    padding: 20px 20px;
-    animation: rainbow 2s infinite; /* Add rainbow color animation */
-}
-
-/* Apply a rainbow color effect on hover */
-@keyframes rainbow {
-    0% { color: red; }
-    14% { color: orange; }
-    28% { color: yellow; }
-    42% { color: green; }
-    57% { color: blue; }
-    71% { color: indigo; }
-    85% { color: violet; }
-    100% { color: red; }
+    color: black; /* Black text color */
+    text-decoration: none;
+    font-size: 24px;
+    padding: 16px;
+    display: inline-block;
+    transition: color 0.5s; /* Add smooth transition for color change */
 }
 
 /* Style the logo on the left side */
 .navbar .logo {
     float: left;
     padding: 16px;
-    position: relative; /* Add this line */
+    position: relative;
+}
+
+/* Modify the width and height properties for the logo */
+.navbar .logo img {
+    width: 100px; /* Adjust the width as needed */
+    height: 50px; /* Adjust the height as needed */
+}
+
+/* Add CSS for styling the cart icon here */
+.navbar .cart-icon img {
+    width: 30px;
+    height: 30px;
+}
+
+/* Apply a green flash effect on hover for text */
+.navbar a:hover {
+    color: #00ff00; /* Change the hover color to green */
+}
+
+/* Modify this style block for the text over video */
+.text-over-video {
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 2;
+    color: white;
+    margin: 0;
+}
+
+.text-over-video h1 {
+    font-family: 'Arial Black', sans-serif;
+    font-size: 56px;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Add this CSS for styling the transparent circular button */
+.shop-button {
+    display: inline-block;
+    width: 120px;
+    height: 60px;
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 30px;
+    margin-top: 20px;
+    color: white; /* Set the text color to white */
+    text-align: center;
+    line-height: 50px; /* Center the text vertically */
+    cursor: pointer; /* Add pointer cursor to indicate interactivity */
+}
+
+/* Style the text inside the circular button */
+.shop-button span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal; /* Reset the line height */
+}
+
+.shop-button:hover {
+    background-color: black;
+}
+
+/* Styles for the shopping cart */
+.shopping-cart {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.shopping-cart img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
 }
 
 /* Add CSS for styling the footer here */
@@ -103,6 +138,36 @@ footer a {
 
 /* Add CSS for styling the cart icon here */
 .navbar .cart-icon img {
-    width: 30px; /* Adjust the size as needed */
+    width: 30px;
     height: 30px;
+}
+
+/* Add this style block for consistent image size */
+.brand-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.brand {
+    text-align: center;
+    background-color: black;
+    padding: 10px;
+}
+
+.brand a {
+    text-decoration: none;
+    color: white;
+}
+
+.brand img {
+    width: 200px;
+    height: 200px;
+    border-bottom: 2px solid white;
+}
+
+.brand p {
+    background-color: black;
+    color: white;
+    margin: 0;
+    padding: 10px;
 }

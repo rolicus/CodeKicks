@@ -18,6 +18,52 @@
         <li><a href="addshoe.html" id="addShoeLink" style="display: none;">MY SHOES</a></li>
     </ul>
 
+    <!-- Check if the user is authenticated before allowing access to the form -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const userIsAuthenticated = true; // Replace with your authentication logic
+            const addShoeLink = document.querySelector("a[href='addshoe.html']");
+
+            if (!userIsAuthenticated) {
+                // If the user is not authenticated, hide the "Add Shoe" link
+                addShoeLink.style.display = "none";
+
+                // Redirect unauthenticated users to the login page
+                window.location.href = "login.html";
+            } else {
+                // If the user is authenticated, show the "Add Shoe" link
+                addShoeLink.style.display = "inline";
+
+                // Show the "Delete Shoe" option
+                document.getElementById("deleteShoeOption").style.display = "block";
+
+                // Function to fetch shoe data and populate the dropdown
+                function populateShoeDropdown() {
+                    fetch('/shoes')
+                        .then(response => response.json())
+                        .then(data => {
+                            const select = document.getElementById("shoeToDelete");
+                            // Clear existing options
+                            select.innerHTML = '';
+                            // Populate options with shoe data
+                            data.forEach(shoe => {
+                                const option = document.createElement("option");
+                                option.value = shoe._id;
+                                option.text = shoe.name;
+                                select.appendChild(option);
+                            });
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
+                }
+
+                // Call the populateShoeDropdown function to fill the dropdown
+                populateShoeDropdown();
+            }
+        });
+    </script>
+
     <!-- Shoe addition form goes here -->
     <form id="shoeForm" action="/addShoe" method="post" enctype="multipart/form-data">
         <h2>Add Shoe</h2>
@@ -55,147 +101,100 @@
     </div>
 
     <script>
-        // Form validation for the "Stock" input
-        document.addEventListener("DOMContentLoaded", function () {
-            const stockInput = document.getElementById("stock");
-            const shoeForm = document.getElementById("shoeForm");
+        // Check authentication status before allowing access
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('/check-authentication')
+                .then(response => response.json())
+                .then(data => {
+                    const isAuthenticated = data.isAuthenticated;
+                    const addShoeLink = document.getElementById('addShoeLink');
     
-            shoeForm.addEventListener("submit", function (event) {
-                const stockValue = parseInt(stockInput.value);
-                if (isNaN(stockValue) || stockValue <= 0) {
-                    event.preventDefault(); // Prevent form submission
-                    alert("Stock must be a positive number.");
-                }
-            });
+                    if (isAuthenticated) {
+                        // If the user is authenticated, show the "Add Shoe" link
+                        addShoeLink.style.display = 'inline';
     
-            // Client-side image resizing
-            document.getElementById("shoeImage").addEventListener("change", function (event) {
-                const fileInput = event.target;
-                const file = fileInput.files[0];
+                        // Show the "Delete Shoe" option
+                        document.getElementById('deleteShoeOption').style.display = 'block';
     
-                if (file) {
-                    resizeImage(file, function (resizedImage) {
-                        // Set the value of the file input to the resized image
-                        fileInput.value = resizedImage;
-                    });
-                }
-            });
+                        // Function to fetch shoe data and populate the dropdown
+                        function populateShoeDropdown() {
+                            fetch('/shoes')
+                                .then(response => response.json())
+                                .then(data => {
+                                    const select = document.getElementById('shoeToDelete');
+                                    // Clear existing options
+                                    select.innerHTML = '';
+                                    // Populate options with shoe data
+                                    data.forEach(shoe => {
+                                        const option = document.createElement('option');
+                                        option.value = shoe._id;
+                                        option.text = shoe.name;
+                                        select.appendChild(option);
+                                    });
+                                })
+                                .catch(error => {
+                                    console.error(error);
+                                });
+                        }
     
-            function resizeImage(file, callback) {
-                const reader = new FileReader();
+                        // Call the populateShoeDropdown function to fill the dropdown
+                        populateShoeDropdown();
+                    } else {
+                        // If the user is not authenticated, hide the "Add Shoe" link
+                        addShoeLink.style.display = 'none';
     
-                reader.onload = function (e) {
-                    const img = new Image();
-    
-                    img.onload = function () {
-                        const canvas = document.createElement("canvas");
-                        const ctx = canvas.getContext("2d");
-    
-                        // Set a fixed size for the images
-                        const fixedWidth = 200;
-                        const fixedHeight = 200;
-    
-                        // Set the canvas dimensions to the fixed size
-                        canvas.width = fixedWidth;
-                        canvas.height = fixedHeight;
-    
-                        // Draw the image on the canvas with fixed dimensions
-                        ctx.drawImage(img, 0, 0, fixedWidth, fixedHeight);
-    
-                        // Convert the canvas content to a base64-encoded data URL
-                        const resizedImage = canvas.toDataURL("image/jpeg");
-    
-                        // Invoke the callback with the resized image
-                        callback(resizedImage);
-                    };
-    
-                    img.src = e.target.result;
-                };
-    
-                reader.readAsDataURL(file);
-            }
+                        // Redirect unauthenticated users to the login page
+                        window.location.href = 'login.html';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error checking authentication status:', error);
+                });
         });
     
-        // Simulate authentication state (replace with actual logic)
-        const userIsAuthenticated = true; // Change to false when the user is not authenticated
     
-        // This variable will control the visibility of the "Add Shoe" link
-        const addShoeLink = document.querySelector("a[href='addshoe.html']");
+
     
-        if (userIsAuthenticated) {
-            // If the user is authenticated, show the "Add Shoe" link
-            addShoeLink.style.display = "inline";
-    
-            // Show the "Delete Shoe" option
-            document.getElementById("deleteShoeOption").style.display = "block";
-    
-            // Function to fetch shoe data and populate the dropdown
-            function populateShoeDropdown() {
-                fetch('/shoes')
-                    .then(response => response.json())
-                    .then(data => {
-                        const select = document.getElementById("shoeToDelete");
-                        // Clear existing options
-                        select.innerHTML = '';
-                        // Populate options with shoe data
-                        data.forEach(shoe => {
-                            const option = document.createElement("option");
-                            option.value = shoe._id;
-                            option.text = shoe.name;
-                            select.appendChild(option);
-                        });
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
-            }
-    
-            // Call the populateShoeDropdown function to fill the dropdown
-            populateShoeDropdown();
-        } else {
-            // If the user is not authenticated, hide the "Add Shoe" link
-            addShoeLink.style.display = "none";
-        }
-    
+            
         // Add the JavaScript function for deleting a shoe
         function deleteShoe() {
-            const select = document.getElementById("shoeToDelete");
+            const select = document.getElementById('shoeToDelete');
             const selectedShoeId = select.value;
     
             // Confirm with the user before deleting
-            const confirmDelete = confirm("Are you sure you want to delete this shoe?");
+            const confirmDelete = confirm('Are you sure you want to delete this shoe?');
             if (!confirmDelete) {
                 return; // Do nothing if the user cancels the delete operation
             }
     
             // Send a request to your server to delete the selected shoe
-            fetch(`/deleteShoe/${selectedShoeId}`, { method: "DELETE" })
+            fetch(`/deleteShoe/${selectedShoeId}`, { method: 'DELETE' })
                 .then(response => {
                     if (response.status === 200) {
-                        alert("Shoe deleted successfully");
+                        alert('Shoe deleted successfully');
                         populateShoeDropdown(); // Refresh the dropdown
                     } else {
-                        alert("Failed to delete the shoe");
+                        alert('Failed to delete the shoe');
                     }
                 })
                 .catch(error => {
                     console.error(error);
-                    alert("An error occurred while deleting the shoe");
+                    alert('An error occurred while deleting the shoe');
                 });
         }
     </script>
     
+    
     <hr>
-<footer>
-    <nav>
-        <ul>
-            <li><a href="aboutus.html">About Us</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
-        </ul>
-    </nav>
-    <p>&copy; 2023 CodeKicks</p>
-</footer>
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="aboutus.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </nav>
+        <p>&copy; 2023 CodeKicks</p>
+    </footer>
 
-    <!-- Client-side image resizing -->
 </body>
 </html>

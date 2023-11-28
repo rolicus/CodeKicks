@@ -11,6 +11,7 @@
     margin: 10px; /* Adjust the margin as needed for spacing between items */
     box-sizing: border-box;
     text-align: center;
+    min-height: 300px;
 }
 
 #shoeList img {
@@ -18,9 +19,6 @@
     height: 200px; /* Set the height to a fixed value */
     margin-bottom: 10px;
 }
-
-
-
 body {
     background-color: black; /* Dark background color */
     color: #ffffff; /* White text color */
@@ -105,4 +103,22 @@ h2 {
 .modal button {
     padding: 10px;
     cursor: pointer;
+}
+
+/* Add this CSS for styling the transparent button */
+.shop-button {
+    display: inline-block;
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    margin-top: 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.shop-button:hover {
+    background-color: white;
+    color: black;
 }
