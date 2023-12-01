@@ -50,7 +50,7 @@ h2 {
 }
 
 .shoe img {
-    width: 100%; /* Set the width to fill the container */
-    height: auto; /* Maintain aspect ratio */
+    width: 200px; /* Set the width to fill the container */
+    height: 200px; /* Maintain aspect ratio */
     margin-bottom: 10px;
 }
