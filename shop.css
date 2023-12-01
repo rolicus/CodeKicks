@@ -1,0 +1,124 @@
+#shoeList {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap to the next line if there's not enough space */
+    text-align: center;
+}
+
+#shoeList li {
+    flex: 0 0 30%; /* Adjust the width as needed */
+    margin: 10px; /* Adjust the margin as needed for spacing between items */
+    box-sizing: border-box;
+    text-align: center;
+    min-height: 300px;
+}
+
+#shoeList img {
+    width: 200px; /* Set the width to a fixed value */
+    height: 200px; /* Set the height to a fixed value */
+    margin-bottom: 10px;
+}
+body {
+    background-color: rgb(33, 189, 241); /* Dark background color */ 
+    color: #ffffff; /* White text color */
+    font-family: 'Your Chosen Font', sans-serif; /* Specify your font */
+}
+
+header {
+    background-color: black; /* Darker background color for the header */
+}
+
+.navbar {
+    background-color: white; /* Dark background color for the navbar */
+    color: black; /* White text color */
+}
+
+main {
+    padding: 20px;
+}
+
+h2 {
+    color: #ff4500; /* Orange color for the section headings */
+}
+
+.user-info,
+.shoe {
+    background-color: transparent; /* Transparent background color */
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.delete-button {
+    background-color: #ff4500; /* Orange color for the delete button */
+    color: #ffffff; /* White text color for the delete button */
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.add-to-cart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.quantity-input {
+    width: 50px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+.add-to-cart-button {
+    width: 100px;
+    height: 40px;
+    border: 2px solid yellow;
+    border-radius: 15px;
+    background: none;
+    color: yellow;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+ /* Modal Styling */
+ .modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    z-index: 1000;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.modal select {
+    margin-bottom: 10px;
+}
+
+.modal button {
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* Add this CSS for styling the transparent button */
+.shop-button {
+    display: inline-block;
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    margin-top: 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.shop-button:hover {
+    background-color: white;
+    color: black;
+}
