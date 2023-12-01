@@ -76,3 +76,21 @@ h1{
     color: black;
 }
 
+footer {
+    background-color: white;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+footer a {
+    text-decoration: none;
+    color: black;
+}
