@@ -41,8 +41,19 @@
             padding: 0;
             display: flex;
             flex-wrap: wrap; /* Allow items to wrap to the next line if there's not enough space */
+            flex-direction: row; /* Set the flex direction to row */
             text-align: center;
         }
+
+        #shoeList {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap; /* Allow items to wrap to the next line if there's not enough space */
+            flex-direction: row; /* Set the flex direction to row */
+            text-align: center;
+        }
+        
         
         #usershoeList li {
             flex: 0 0 30%; /* Adjust the width as needed */
