@@ -1,76 +1,56 @@
+body {
+    background-color: black; /* Dark background color */
+    color: #ffffff; /* White text color */
+    font-family: 'Your Chosen Font', sans-serif; /* Specify your font */
+}
 
-        body {
-            background-color: black; /* Dark background color */
-            color: #ffffff; /* White text color */
-            font-family: 'Your Chosen Font', sans-serif; /* Specify your font */
-        }
+header {
+    background-color: black; /* Darker background color for the header */
+}
 
-        header {
-            background-color: black; /* Darker background color for the header */
-        }
+.navbar {
+    background-color: white; /* Dark background color for the navbar */
+    color: black; /* White text color */
+}
 
-        .navbar {
-            background-color: white; /* Dark background color for the navbar */
-            color: black; /* White text color */
-        }
+main {
+    padding: 20px;
+}
 
-        main {
-            padding: 20px;
-        }
+h2 {
+    color: #ff4500; /* Orange color for the section headings */
+}
 
-        h2 {
-            color: #ff4500; /* Orange color for the section headings */
-        }
+.user-info,
+.shoe {
+    background-color: transparent; /* Transparent background color */
+    padding: 15px;
+    margin-bottom: 20px;
+}
 
-        .user-info,
-        .shoe {
-            background-color: transparent; /* Transparent background color */
-            padding: 15px;
-            margin-bottom: 20px;
-        }
+.delete-button {
+    background-color: #ff4500; /* Orange color for the delete button */
+    color: #ffffff; /* White text color for the delete button */
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
 
-        .delete-button {
-            background-color: #ff4500; /* Orange color for the delete button */
-            color: #ffffff; /* White text color for the delete button */
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-        #usershoeList {
-            list-style-type: none;
-            padding: 0;
-            display: flex;
-            flex-wrap: wrap; /* Allow items to wrap to the next line if there's not enough space */
-            flex-direction: row; /* Set the flex direction to row */
-            text-align: center;
-        }
+#userShoesList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
 
-        #shoeList {
-            list-style-type: none;
-            padding: 0;
-            display: flex;
-            flex-wrap: wrap; /* Allow items to wrap to the next line if there's not enough space */
-            flex-direction: row; /* Set the flex direction to row */
-            text-align: center;
-        }
-        
-        
-        #usershoeList li {
-            flex: 0 0 30%; /* Adjust the width as needed */
-            margin: 10px; /* Adjust the margin as needed for spacing between items */
-            box-sizing: border-box;
-            text-align: center;
-        }
-        
-        #shoeList img {
-            width: 200px; /* Set the width to a fixed value */
-            height: 200px; /* Set the height to a fixed value */
-            margin-bottom: 10px;
-        }
+.shoe {
+    flex: 0 0 30%; /* Adjust the width as needed */
+    box-sizing: border-box;
+    text-align: center;
+    margin-bottom: 20px;
+}
 
-        #userShoesList img {
-            width: 200px; /* Set the width to a fixed value */
-            height: 200px; /* Set the height to a fixed value */
-            margin-bottom: 10px;
-        }
-        
+.shoe img {
+    width: 100%; /* Set the width to fill the container */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 10px;
+}
