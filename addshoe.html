@@ -14,8 +14,6 @@
         <li><a href="aboutus.html">About Us</a></li>
         <li><a href="contact.html">Contact Us</a></li>
         <li><a href="login.html">Login</a></li>
-        <!-- Update the href attribute to point to "addshoe.html" -->
-        <li><a href="addshoe.html" id="addShoeLink" style="display: none;">MY SHOES</a></li>
     </ul>
 
     <!-- Check if the user is authenticated before allowing access to the form -->
@@ -66,17 +64,43 @@
 
     <!-- Shoe addition form goes here -->
     <form id="shoeForm" action="/addShoe" method="post" enctype="multipart/form-data">
-        <h2>Add Shoe</h2>
+        <h2>Add a new listing</h2>
 
+        <!-- Dropdown for Brand Name -->
         <label for="brand">Brand Name:</label>
-        <input type="text" id="brand" name="brand" required><br><br>
+        <select id="brand" name="brand" required>
+            <option value="asics">Asics</option>
+            <option value="birkenstock">Birkenstock</option>
+            <option value="crocs">Crocs</option>
+            <option value="dior">Dior</option>
+            <option value="drmartens">Dr. Martens</option>
+            <option value="gucci">Gucci</option>
+            <option value="nike">Nike</option>
+            <option value="adidas">Adidas</option>
+            <option value="puma">Puma</option>
+            <option value="converse">Converse</option>
+            <option value="jordans">Jordans</option>
+            <option value="newbalance">New Balance</option>
+            <option value="vans">Vans</option>
+        </select><br><br>
 
         <hr>
         <label for="name">Shoe Name:</label>
         <input type="text" id="name" name="name" required><br><br>
 
         <label for="size">Shoe Size:</label>
-        <input type="text" id="size" name="size" required><br><br>
+        <select id="size" name="size" required>
+            <!-- Sizes options here -->
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+        </select><br><br>
 
         <label for="price">Price:</label>
         <input type="text" id="price" name="price" required><br><br>

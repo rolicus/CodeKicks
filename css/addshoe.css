@@ -44,11 +44,155 @@ button:hover {
     background-color: #0056b3; /* Darker blue color on hover */
 }
 
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5; /* Light gray background */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form {
+    background-color: #fff; /* White background for the form */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light box shadow */
+    width: 80%; /* Adjust the form width as needed */
+    margin-top: 20px;
+}
+
+h2 {
+    color: #333; /* Dark gray heading color */
+    text-align: center;
+}
+
+label {
+    display: block;
+    margin: 10px 0;
+    color: #666; /* Medium gray label color */
+}
+
+select, input {
+    width: 100%; /* Full-width input fields */
+    padding: 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4caf50; /* Green button color */
+    color: #fff; /* White button text color */
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%; /* Full-width button */
+}
+
+button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+/* Reset some default styles to ensure consistency across browsers */
+body, div, h1, p, video {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: black; /* Dark background color */
+    color: #ffffff; /* White text color */
+    font-family: 'Your Chosen Font', sans-serif; /* Specify your font */
+    margin: 0;
+}
+
+/* Style the navigation bar */
+.navbar {
+    background-color: white; /* White background color for the navbar */
+    overflow: hidden;
+    padding: 10px 0; /* Adjust the padding as needed */
+    list-style-type: none; /* Remove default list styles */
+    margin: 0;
+}
+
+/* Style the navbar links on the top right */
+.navbar li {
+    float: right;
+}
+
+.navbar a {
+    color: black; /* Black text color */
+    text-decoration: none;
+    font-size: 24px;
+    padding: 16px;
+    display: inline-block;
+    transition: color 0.5s; /* Add smooth transition for color change */
+}
+
+/* Style the logo on the left side */
+.navbar .logo {
+    float: left;
+    padding: 16px;
+    position: relative;
+}
+
+/* Modify the width and height properties for the logo */
+.navbar .logo img {
+    width: 100px; /* Adjust the width as needed */
+    height: 50px; /* Adjust the height as needed */
+}
+
+/* Add CSS for styling the cart icon here */
+.navbar .cart-icon img {
+    width: 30px;
+    height: 30px;
+}
+
+/* Apply a green flash effect on hover for text */
+.navbar a:hover {
+    color: #00ff00; /* Change the hover color to green */
+}
+
+/* Add this style block for consistent image size */
+.brand-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.brand {
+    text-align: center;
+    background-color: black;
+    padding: 10px;
+}
+
+.brand a {
+    text-decoration: none;
+    color: white;
+}
+
+.brand img {
+    width: 200px;
+    height: 200px;
+    border-bottom: 2px solid white;
+}
+
+.brand p {
+    background-color: black;
+    color: white;
+    margin: 0;
+    padding: 10px;
+}
+
+/* Add CSS for styling the footer here */
 footer {
     background-color: white;
     color: white;
     padding: 10px;
     text-align: center;
+    font-size: 18px;
 }
 
 footer ul {
@@ -56,6 +200,11 @@ footer ul {
     padding: 0;
     display: flex;
     justify-content: space-around;
+}
+
+footer li {
+    display: inline-block;
+    margin-right: 20px;
 }
 
 footer a {
