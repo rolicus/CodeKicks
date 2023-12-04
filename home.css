@@ -1,0 +1,173 @@
+/* Reset some default styles to ensure consistency across browsers */
+body, div, h1, p, video {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: rgb(33, 189, 241); /* Dark background color */
+    color: #ffffff; /* White text color */
+    font-family: 'Your Chosen Font', sans-serif; /* Specify your font */
+    margin: 0;
+}
+
+/* Style the navigation bar */
+.navbar {
+    background-color: rgb(0, 106, 255); /* White background color for the navbar */
+    overflow: hidden;
+    padding: 10px; /* Adjust the padding as needed */
+    list-style-type: none; /* Remove default list styles */
+    margin: 0;
+}
+
+/* Style the navbar links on the top right */
+.navbar li {
+    float: right;
+}
+
+.navbar a {
+    color: rgb(255, 255, 255); /* White text color */
+    text-decoration: none;
+    font-size: 24px;
+    padding: 16px;
+    display: inline-block;
+    transition: color 0.5s; /* Add smooth transition for color change */
+}
+
+/* Style the logo on the left side */
+.navbar .logo {
+    float: left;
+    padding: 20px;
+    position: relative;
+}
+
+/* Modify the width and height properties for the logo */
+.navbar .logo img {
+    width: 100px; /* Adjust the width as needed */
+    height: 50px; /* Adjust the height as needed */
+}
+
+/* Add CSS for styling the cart icon here */
+.navbar .cart-icon img {
+    width: 50px;
+    height: 50px;
+}
+
+/* Apply a green flash effect on hover for text */
+.navbar a:hover {
+    color: #00ff00; /* Change the hover color to green */
+}
+
+/* Modify this style block for the text over video */
+.text-over-video {
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 2;
+    color: white;
+    margin: 0;
+}
+
+.text-over-video h1 {
+    font-family: 'Arial Black', sans-serif;
+    font-size: 56px;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Add this CSS for styling the transparent circular button */
+.shop-button {
+    display: inline-block;
+    width: 120px;
+    height: 60px;
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 30px;
+    margin-top: 20px;
+    color: white; /* Set the text color to white */
+    text-align: center;
+    line-height: 50px; /* Center the text vertically */
+    cursor: pointer; /* Add pointer cursor to indicate interactivity */
+}
+
+/* Style the text inside the circular button */
+.shop-button span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal; /* Reset the line height */
+}
+
+.shop-button:hover {
+    background-color: black;
+}
+
+/* Styles for the shopping cart */
+.shopping-cart {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.shopping-cart img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+/* Add CSS for styling the footer here */
+footer {
+    background-color: black;
+    color: white;
+    padding: 5px;
+    text-align: center;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+footer a {
+    text-decoration: none;
+    color: black;
+}
+
+/* Add CSS for styling the cart icon here */
+.navbar .cart-icon img {
+    width: 30px;
+    height: 30px;
+}
+
+/* Add this style block for consistent image size */
+.brand-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.brand {
+    text-align: center;
+    background-color: white;
+    padding: 10px;
+}
+
+.brand a {
+    text-decoration: none;
+    color: white;
+}
+
+.brand img {
+    width: 200px;
+    height: 200px;
+    border-bottom: 2px solid white;
+}
+
+.brand p {
+    background-color: blue;
+    color: white;
+    margin: 0;
+    padding: 10px;
+}
