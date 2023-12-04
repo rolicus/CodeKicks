@@ -82,19 +82,7 @@ select, input {
     box-sizing: border-box;
 }
 
-button {
-    background-color: #4caf50; /* Green button color */
-    color: #fff; /* White button text color */
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%; /* Full-width button */
-}
 
-button:hover {
-    background-color: #45a049; /* Darker green on hover */
-}
 
 /* Reset some default styles to ensure consistency across browsers */
 body, div, h1, p, video {
@@ -103,7 +91,7 @@ body, div, h1, p, video {
 }
 
 body {
-    background-color: black; /* Dark background color */
+    background-color: #007BFF; /* Dark background color */
     color: #ffffff; /* White text color */
     font-family: 'Your Chosen Font', sans-serif; /* Specify your font */
     margin: 0;
@@ -111,11 +99,12 @@ body {
 
 /* Style the navigation bar */
 .navbar {
-    background-color: white; /* White background color for the navbar */
+    background-color:  #0056b3; /* White background color for the navbar */
     overflow: hidden;
     padding: 10px 0; /* Adjust the padding as needed */
     list-style-type: none; /* Remove default list styles */
     margin: 0;
+    width: 100%;
 }
 
 /* Style the navbar links on the top right */
@@ -188,11 +177,12 @@ body {
 
 /* Add CSS for styling the footer here */
 footer {
-    background-color: white;
+    background-color:  #0056b3;
     color: white;
     padding: 10px;
     text-align: center;
     font-size: 18px;
+    width: 100%;
 }
 
 footer ul {

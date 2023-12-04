@@ -5,7 +5,7 @@ body, div, h1, p, video {
 }
 
 body {
-    background-color: black; /* Dark background color */
+    background-color: #007BFF; /* Dark background color */
     color: #ffffff; /* White text color */
     font-family: 'Your Chosen Font', sans-serif; /* Specify your font */
     margin: 0;
@@ -13,7 +13,7 @@ body {
 
 /* Style the navigation bar */
 .navbar {
-    background-color: white; /* White background color for the navbar */
+    background-color: #0056b3; /* White background color for the navbar */
     overflow: hidden;
     padding: 10px 0; /* Adjust the padding as needed */
     list-style-type: none; /* Remove default list styles */
@@ -55,19 +55,21 @@ body {
 
 /* Apply a green flash effect on hover for text */
 .navbar a:hover {
-    color: #00ff00; /* Change the hover color to green */
+    color: red; /* Change the hover color to green */
 }
 
 /* Modify this style block for the text over video */
 .text-over-video {
     position: absolute;
-    top: 65%;
+    top: 70%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
     z-index: 2;
     color: white;
     margin: 0;
+    width: 100%; /* Set width to 100% to cover the entire section */
+    height: 100%; /* Set height to 100% to cover the entire section */
 }
 
 .text-over-video h1 {
@@ -75,7 +77,9 @@ body {
     font-size: 56px;
     font-weight: bold;
     margin: 0;
+    padding: 20px; /* Add padding to create space around the text */
 }
+
 
 /* Add this CSS for styling the transparent circular button */
 .shop-button {
@@ -118,7 +122,7 @@ body {
 
 /* Add CSS for styling the footer here */
 footer {
-    background-color: white;
+    background-color:  #0056b3;
     color: white;
     padding: 10px;
     text-align: center;
