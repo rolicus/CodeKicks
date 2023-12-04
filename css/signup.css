@@ -1,87 +1,64 @@
+/* Import styles from checkout.css */
+@import url('checkout.css');
+
+/* Additional styles specific to the signup page */
 body {
-    background-color: Gainsboro;
-    font-family: "Roboto", sans-serif;
-  }
-  
-  .signup-box {
-    width: 360px;
-    height: 620px;
-    margin: auto;
-    background-color: white;
-    border-radius: 3px;
-  }
-  
-  .login-box {
-    width: 360px;
-    height: 280px;
-    margin: auto;
-    border-radius: 3px;
-    background-color: white;
-  }
-  
-  h1 {
-    text-align: center;
-    padding-top: 15px;
-  }
-  
-  h4 {
-    text-align: center;
-  }
-  
-  form {
-    width: 300px;
-    margin-left: 20px;
-  }
-  
-  form label {
-    display: flex;
-    margin-top: 20px;
-    font-size: 18px;
-  }
-  
-  form input {
-    width: 100%;
-    padding: 7px;
-    border: none;
-    border: 1px solid gray;
-    border-radius: 6px;
-    outline: none;
-  }
-  input[type="button"] {
-    width: 320px;
-    height: 35px;
-    margin-top: 20px;
-    border: none;
-    background-color: #49c1a2;
-    color: white;
-    font-size: 18px;
-  }
-  p {
-    text-align: center;
-    padding-top: 20px;
-    font-size: 15px;
-  }
-  .para-2 {
-    text-align: center;
-    color: white;
-    font-size: 15px;
-    margin-top: -10px;
-  }
-  .para-2 a {
-    color: #49c1a2;
-  }
-  
-  .signUpBtn:hover{
-    background-position: right;
-    font-size: 20px;
-    background-color: gray;
+    text-align: center; 
 }
 
+h1 {
+    color: #fff; 
+    margin-top: 20px;
+}
+
+form {
+    background-color: #333; 
+    color: #fff; 
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px; 
+    margin: 20px auto; 
+}
+
+form label, form input[type="text"], form input[type="email"], form input[type="password"] {
+    display: block;
+    width: calc(100% - 16px); 
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #555;
+    background-color: #222;
+    color: white;
+    border-radius: 4px;
+}
+
+/* Style the submit button */
+form input[type="submit"] {
+    background-color: #00ff00; 
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form input[type="submit"]:hover {
+    background-color: #00cc00; 
+}
+
+/* Footer styles */
 footer {
-    background-color: white;
+    background-color: black; 
     color: white;
     padding: 10px;
     text-align: center;
+    margin-top: 30px;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
 }
 
 footer ul {
@@ -89,9 +66,4 @@ footer ul {
     padding: 0;
     display: flex;
     justify-content: space-around;
-}
-
-footer a {
-    text-decoration: none;
-    color: black;
 }

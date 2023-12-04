@@ -1,65 +1,80 @@
-body {
-    background-color: black; /* Dark background color */
-    color: #ffffff; /* White text color */
-    font-family: 'Your Chosen Font', sans-serif; /* Specify your font */
-}
+/* Import styles from checkout.css */
+@import url('checkout.css');
 
+/* Additional styles specific to the user account page */
 header {
-    background-color: black; /* Darker background color for the header */
+    color: #fff; 
+    text-align: center; 
+    margin-bottom: 20px;
 }
 
-.navbar {
-    background-color: white; /* Dark background color for the navbar */
-    color: black; /* White text color */
+h1, h2 {
+    color: #fff; 
 }
 
+/* Style the main content sections */
 main {
     padding: 20px;
 }
 
-h2 {
-    color: #ff4500; /* Orange color for the section headings */
+section {
+    background-color: #333; 
+    color: #fff; 
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 600px; 
+    margin: 20px auto; 
+    text-align: left;
 }
 
-.user-info,
-.shoe {
-    background-color: transparent; /* Transparent background color */
-    padding: 15px;
+.user-info, .user-shoes {
+    margin: 10px 0; 
+}
+
+.user-info p, .user-shoes div {
+    margin-bottom: 10px; 
+}
+
+.user-shoes .shoe {
+    background-color: #222; 
+    padding: 10px;
+    border-radius: 4px;
     margin-bottom: 20px;
+}
+
+.user-shoes img {
+    width: 100%; 
+    height: auto; 
+    border-radius: 4px;
+    margin-top: 10px;
 }
 
 .delete-button {
-    background-color: #ff4500; /* Orange color for the delete button */
-    color: #ffffff; /* White text color for the delete button */
+    background-color: #ff0000; 
+    color: white;
     border: none;
     padding: 5px 10px;
+    border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-#userShoesList {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+.delete-button:hover {
+    background-color: #cc0000; 
 }
 
-.shoe {
-    flex: 0 0 30%; /* Adjust the width as needed */
-    box-sizing: border-box;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.shoe img {
-    width: 200px; /* Set the width to fill the container */
-    height: 200px; /* Maintain aspect ratio */
-    margin-bottom: 10px;
-}
-
+/* Footer styles */
 footer {
-    background-color: white;
+    background-color: black; 
     color: white;
     padding: 10px;
     text-align: center;
+    margin-top: 30px; 
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
 }
 
 footer ul {
@@ -67,9 +82,4 @@ footer ul {
     padding: 0;
     display: flex;
     justify-content: space-around;
-}
-
-footer a {
-    text-decoration: none;
-    color: black;
 }

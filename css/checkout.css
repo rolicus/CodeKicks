@@ -1,0 +1,112 @@
+body, div, h1, p {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: black; 
+    color: #ffffff; 
+    font-family: 'Your Chosen Font', sans-serif; 
+}
+
+.navbar {
+    background-color: white; 
+    overflow: hidden;
+    padding: 10px 0; 
+    list-style-type: none; 
+    margin: 0;
+}
+
+/* Navbar links */
+.navbar li {
+    float: right;
+}
+
+.navbar a {
+    color: black; 
+    text-decoration: none;
+    font-size: 24px;
+    padding: 16px;
+    display: inline-block;
+    transition: color 0.5s; 
+}
+
+/* Navbar hover effect */
+.navbar a:hover {
+    color: #00ff00; 
+}
+
+/* Style the checkout form */
+#paymentForm {
+    background-color: #333; 
+    color: #fff; 
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    margin: auto;
+}
+
+#paymentForm label, #paymentForm input[type="text"] {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#paymentForm input[type="text"] {
+    padding: 8px;
+    border: 1px solid #555;
+    background-color: #222; 
+    color: white;
+    border-radius: 4px;
+}
+
+/* Style the submit button */
+#paymentForm button {
+    background-color: #00ff00; 
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#paymentForm button:hover {
+    background-color: #00cc00; 
+}
+
+/* Style the shopping cart section */
+#shoppingCart {
+    background-color: #222; 
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    list-style-type: none;
+    margin: 20px 0;
+}
+
+#shoppingCart li {
+    border-bottom: 1px solid #555;
+    padding: 5px;
+}
+
+/* Footer styles */
+footer {
+    background-color: black; 
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}

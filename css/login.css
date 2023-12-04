@@ -1,31 +1,31 @@
-/* Import styles from checkout.css */
 @import url('checkout.css');
 
-/* Additional styles specific to the add shoe page */
-#shoeForm, #deleteShoeOption {
+/* Additional styles specific to the login page */
+#loginForm {
     background-color: #333; 
     color: #fff; 
     padding: 20px;
     border-radius: 8px;
-    max-width: 400px; 
-    margin: 30px auto; 
+    max-width: 300px; 
+    margin: 50px auto; 
     text-align: center;
 }
 
-#shoeForm label, #shoeForm input[type="text"], #shoeForm input[type="number"], #shoeForm input[type="file"],
-#deleteShoeOption label, #deleteShoeOption select {
-    display: block;
+.textBoxdiv {
+    margin-bottom: 15px;
+}
+
+#loginForm input[type="text"], #loginForm input[type="password"] {
     width: calc(100% - 16px); 
     padding: 8px;
-    margin-bottom: 10px;
     border: 1px solid #555;
     background-color: #222; 
     color: white;
     border-radius: 4px;
 }
 
-#shoeForm button, #deleteShoeOption button {
-    background-color: #00ff00;
+.loginBtn {
+    background-color: #00ff00; 
     color: black;
     border: none;
     padding: 10px 20px;
@@ -35,24 +35,31 @@
     transition: background-color 0.3s;
 }
 
-#shoeForm button:hover, #deleteShoeOption button:hover {
+.loginBtn:hover {
     background-color: #00cc00; 
 }
 
-hr {
-    border: 0;
-    height: 1px;
-    background-color: #555; 
-    margin: 20px 0;
+.signup {
+    color: white; 
+    margin-top: 20px;
 }
 
-/* Footer styles  */
+.signup a {
+    color: #00ff00; 
+    text-decoration: none;
+}
+
+.signup a:hover {
+    color: #00cc00; 
+}
+
+
 footer {
     background-color: black; 
     color: white;
     padding: 10px;
     text-align: center;
-    margin-top: 30px;
+    margin-top: 30px; 
 }
 
 footer a {

@@ -1,133 +1,95 @@
+/* Import styles from checkout.css */
+@import url('checkout.css');
+
+/* Additional styles specific to the shop page */
+body {
+    text-align: center; 
+}
+
+h1, h2 {
+    color: #fff; 
+    margin-top: 20px;
+}
+
+/* Style the filter section */
+#brandFilter, #sizeFilter, #priceFilter {
+    background-color: #222; 
+    color: #fff; 
+    border: 1px solid #555;
+    border-radius: 4px;
+    padding: 8px;
+    margin: 20px auto; 
+    display: inline-block; 
+}
+
+/* Style the list of shoes */
 #shoeList {
-    list-style-type: none;
+    list-style-type: none; 
     padding: 0;
-    display: flex;
-    flex-wrap: wrap; /* Allow items to wrap to the next line if there's not enough space */
-    text-align: center;
+    margin: 20px auto;
+    max-width: 800px; 
 }
 
 #shoeList li {
-    flex: 0 0 30%; /* Adjust the width as needed */
-    margin: 10px; /* Adjust the margin as needed for spacing between items */
-    box-sizing: border-box;
-    text-align: center;
-    min-height: 300px;
+    background-color: #333; 
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: left;
 }
 
 #shoeList img {
-    width: 200px; /* Set the width to a fixed value */
-    height: 200px; /* Set the height to a fixed value */
-    margin-bottom: 10px;
-}
-body {
-    background-color: black; /* Dark background color */
-    color: #ffffff; /* White text color */
-    font-family: 'Your Chosen Font', sans-serif; /* Specify your font */
+    width: 100%; 
+    height: auto;
+    border-radius: 4px;
 }
 
-header {
-    background-color: black; /* Darker background color for the header */
-}
-
-.navbar {
-    background-color: white; /* Dark background color for the navbar */
-    color: black; /* White text color */
-}
-
-main {
-    padding: 20px;
-}
-
-h2 {
-    color: #ff4500; /* Orange color for the section headings */
-}
-
-.user-info,
-.shoe {
-    background-color: transparent; /* Transparent background color */
-    padding: 15px;
-    margin-bottom: 20px;
-}
-
-.delete-button {
-    background-color: #ff4500; /* Orange color for the delete button */
-    color: #ffffff; /* White text color for the delete button */
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-.add-to-cart-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.quantity-input {
-    width: 50px;
-    padding: 5px;
-    border: 1px solid #ccc;
+/* Style the shopping cart */
+#shoppingCart {
+    background-color: #222; 
+    color: #fff; 
     border-radius: 5px;
-    margin-right: 5px;
+    padding: 15px;
+    list-style-type: none; 
+    margin: 20px auto;
+    max-width: 800px; 
 }
 
-.add-to-cart-button {
-    width: 100px;
-    height: 40px;
-    border: 2px solid yellow;
-    border-radius: 15px;
-    background: none;
-    color: yellow;
-    cursor: pointer;
-    margin-top: 10px;
+#shoppingCart li {
+    border-bottom: 1px solid #555;
+    padding: 5px;
 }
 
- /* Modal Styling */
- .modal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    background-color: #fff;
-    z-index: 1000;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-    text-align: center;
-}
-
-.modal select {
-    margin-bottom: 10px;
-}
-
-.modal button {
-    padding: 10px;
-    cursor: pointer;
-}
-
-/* Add this CSS for styling the transparent button */
-.shop-button {
-    display: inline-block;
-    background-color: transparent;
-    color: white;
-    border: 2px solid white;
-    padding: 10px 20px;
-    text-decoration: none;
-    font-size: 18px;
-    margin-top: 20px;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.shop-button:hover {
-    background-color: white;
+/* Style the checkout button */
+button {
+    background-color: #00ff00; 
     color: black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
 }
 
+button:hover {
+    background-color: #00cc00; 
+}
+
+/* Footer styles */
 footer {
-    background-color: white;
+    background-color: black; 
     color: white;
     padding: 10px;
     text-align: center;
+    margin-top: 30px; 
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
 }
 
 footer ul {
@@ -135,9 +97,4 @@ footer ul {
     padding: 0;
     display: flex;
     justify-content: space-around;
-}
-
-footer a {
-    text-decoration: none;
-    color: black;
 }
