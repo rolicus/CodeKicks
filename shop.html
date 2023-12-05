@@ -108,6 +108,8 @@
                 });
         });
 
+    
+
         // Function to fetch shoe data and populate the list
         function fetchShoeData() {
             fetch('/shoes') // Replace with the correct URL of your server
@@ -165,6 +167,9 @@
 
                             shoeList.appendChild(listItem);
                         });
+                        function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+        }
                     }
                 })
                 .catch((error) => {
@@ -202,6 +207,7 @@
                     quantity
                 });
             }
+            shoe.stock -= quantity;
 
             updateCart();
         }
@@ -270,6 +276,8 @@
 
         // Call the function to fetch and display shoe data when the page loads
         fetchShoeData();
+
+
     </script>
 </body>
 

@@ -33,7 +33,7 @@ form label, form input[type="text"], form input[type="email"], form input[type="
 
 /* Style the submit button */
 form input[type="submit"] {
-    background-color: #00ff00; 
+    background-color: red; 
     color: black;
     border: none;
     padding: 10px 20px;
@@ -44,7 +44,7 @@ form input[type="submit"] {
 }
 
 form input[type="submit"]:hover {
-    background-color: #00cc00; 
+    background-color: red; 
 }
 
 /* Footer styles */
