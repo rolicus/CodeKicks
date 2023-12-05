@@ -264,6 +264,34 @@ app.post('/process-payment', async (req, res) => {
     // Payment failed, respond with an error status
     res.status(400).json({ error: 'Payment failed' });
   }
+});app.post('/process-payment', async (req, res) => {
+  // Retrieve payment information and user details from the request body
+  const { cardNumber, expDate, cart, firstName, lastName, address } = req.body;
+
+  // Here you can add logic to handle or store the user's information, like firstName, lastName, and address.
+  // For example, save these details to the database, use them in the payment process, etc.
+
+  // Simulate payment processing logic here (e.g., validate card number, expiration date, etc.)
+  const isPaymentSuccessful = simulatePaymentProcessing(cardNumber, expDate);
+
+  if (isPaymentSuccessful) {
+    // Payment is successful, so delete purchased shoes from the database
+    try {
+      // Create an array of shoe IDs to delete
+      const shoeIdsToDelete = cart.map(item => item.shoe._id);
+
+      // Use Mongoose to delete the shoes with matching IDs
+      await shoes.deleteMany({ _id: { $in: shoeIdsToDelete } });
+
+      res.sendStatus(200); // Send a success response
+    } catch (error) {
+      console.error('Failed to delete purchased shoes:', error);
+      res.status(500).json({ error: 'Failed to delete purchased shoes' });
+    }
+  } else {
+    // Payment failed, respond with an error status
+    res.status(400).json({ error: 'Payment failed' });
+  }
 });
 
 function isAuthenticated(req, res, next) {

@@ -9,13 +9,43 @@
 </head>
 <body>
     <ul class="navbar">
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="home.html">Home</a></li>
+        <li class="navbar-right cart-icon"><a href="checkout.html"><img src="images/cart.jpg" alt="Shopping Cart"></a></li>
+        <li class="navbar-right" id="accountLink"><a href="useraccountpage.html">Account</a></li>
+        <li class="navbar-right" id="loginLink"><a href="login.html">Login</a></li>
+
+        <li class="navbar-right"><a href="shop.html">Shop</a></li>
+        <li class="navbar-right"><a href="home.html">Home</a></li>
 
     </ul>
 
     <!-- Check if the user is authenticated before allowing access to the form -->
     <script>
+        // Add this code to your existing JavaScript logic
+        document.addEventListener('DOMContentLoaded', function () {
+            // Fetch authentication status from the server
+            fetch('/check-authentication')
+                .then(response => response.json())
+                .then(data => {
+                    const isAuthenticated = data.isAuthenticated;
+    
+                    // Access the account link element
+                    const accountLink = document.getElementById('accountLink');
+                    const loginLink = document.getElementById('loginLink');
+    
+                    // Show or hide the account link based on authentication status
+                    if (isAuthenticated) {
+                        accountLink.style.display = 'block';
+                        loginLink.style.display = 'none'; // Hide the login link
+                    } else {
+                        accountLink.style.display = 'none';
+                        loginLink.style.display = 'block'; // Show the login link
+                    }
+                })
+                .catch(error => {
+                    console.error('Error checking authentication status:', error);
+                });
+        });
+
         document.addEventListener('DOMContentLoaded', function () {
             const userIsAuthenticated = true; // Replace with your authentication logic
             const addShoeLink = document.querySelector("a[href='addshoe.html']");

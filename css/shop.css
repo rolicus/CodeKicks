@@ -20,8 +20,8 @@
     margin-bottom: 10px;
 }
 body {
-    background-color: black; /* Dark background color */
-    color: #ffffff; /* White text color */
+    background-color: #007BFF; /* Dark background color */
+    color: black; /* White text color */
     font-family: 'Your Chosen Font', sans-serif; /* Specify your font */
 }
 
@@ -30,7 +30,7 @@ header {
 }
 
 .navbar {
-    background-color: white; /* Dark background color for the navbar */
+    background-color:  #0056b3; /* Dark background color for the navbar */
     color: black; /* White text color */
 }
 
@@ -39,7 +39,7 @@ main {
 }
 
 h2 {
-    color: #ff4500; /* Orange color for the section headings */
+    color: black; /* Orange color for the section headings */
 }
 
 .user-info,
@@ -74,10 +74,10 @@ h2 {
 .add-to-cart-button {
     width: 100px;
     height: 40px;
-    border: 2px solid yellow;
+    border: 2px solid red;
     border-radius: 15px;
     background: none;
-    color: yellow;
+    color: red;
     cursor: pointer;
     margin-top: 10px;
 }
@@ -123,8 +123,20 @@ h2 {
     color: black;
 }
 
+.shopping-cart {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.shopping-cart img {
+    width: 20px !important; /* Adjust the width to make the image smaller */
+    height: 20px !important; /* Adjust the height to make the image smaller */
+    margin-right: 10px;
+}
+
 footer {
-    background-color: white;
+    background-color:  #0056b3;
     color: white;
     padding: 10px;
     text-align: center;

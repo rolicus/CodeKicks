@@ -1,47 +1,42 @@
-/* addshoe.css */
+/* Import styles from checkout.css */
+@import url('checkout.css');
 
-/* Style for the form container */
-.form-container {
-    width: 60%; /* Adjust the width as needed */
-    margin: 0 auto;
+/* Additional styles specific to the add shoe page */
+#shoeForm, #deleteShoeOption {
+    background-color: #333; 
+    color: #fff; 
     padding: 20px;
-    background-color: #f2f2f2; /* Light gray background color */
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+    border-radius: 8px;
+    max-width: 400px; 
+    margin: 30px auto; 
+    text-align: center;
 }
 
-/* Style for form elements */
-form {
-    text-align: left;
-}
-
-label {
+#shoeForm label, #shoeForm input[type="text"], #shoeForm input[type="number"], #shoeForm input[type="file"],
+#deleteShoeOption label, #deleteShoeOption select {
     display: block;
+    width: calc(100% - 16px); 
+    padding: 8px;
     margin-bottom: 10px;
-    font-weight: bold;
-}
-
-input[type="text"],
-textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-}
-
-button {
-    padding: 10px 20px;
-    background-color: #007BFF; /* Blue button color, change as needed */
+    border: 1px solid #555;
+    background-color: #222; 
     color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    border-radius: 4px;
 }
 
-button:hover {
-    background-color: #0056b3; /* Darker blue color on hover */
+#shoeForm button, #deleteShoeOption button {
+    background-color: red;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#shoeForm button:hover, #deleteShoeOption button:hover {
+    background-color: red; 
 }
 
 
@@ -99,7 +94,7 @@ body {
 
 /* Style the navigation bar */
 .navbar {
-    background-color:  #0056b3; /* White background color for the navbar */
+    background-color:   #0056b3; /* White background color for the navbar */
     overflow: hidden;
     padding: 10px 0; /* Adjust the padding as needed */
     list-style-type: none; /* Remove default list styles */
@@ -142,7 +137,7 @@ body {
 
 /* Apply a green flash effect on hover for text */
 .navbar a:hover {
-    color: #00ff00; /* Change the hover color to green */
+    color: red; /* Change the hover color to green */
 }
 
 /* Add this style block for consistent image size */
@@ -183,6 +178,25 @@ footer {
     text-align: center;
     font-size: 18px;
     width: 100%;
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #555; 
+    margin: 20px 0;
+}
+
+/* Footer styles  */
+footer {
+    background-color:  #0056b3; 
+    color: white;
+    padding: 10px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
 }
 
 footer ul {
@@ -200,4 +214,5 @@ footer li {
 footer a {
     text-decoration: none;
     color: black;
+}
 }

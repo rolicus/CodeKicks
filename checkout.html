@@ -9,11 +9,13 @@
 </head>
 <body>
     <ul class="navbar">
-        <li><a href="home.html">Home</a></li>
+        <li class="navbar-right"><a href="addshoe.html">Sell</a></li>
+        <li class="navbar-right" id="accountLink"><a href="useraccountpage.html">Account</a></li>
+        <li class="navbar-right" id="loginLink"><a href="login.html">Login</a></li>
+
         <li><a href="shop.html">Shop</a></li>
-        <li><a href="aboutus.html">About Us</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
-        <li><a href="login.html">Login</a></li>
+        <li><a href="home.html">Home</a></li>
+
     </ul>
     <h1>Checkout</h1>
     
@@ -25,6 +27,15 @@
     
     <form id="paymentForm" method ="post">
         <h2>Payment Information</h2>
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required>
+        <br>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required>
+        <br>
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" required>
+        <br>
         <label for="cardNumber">Card Number:</label>
         <input type="text" id="cardNumber" name="cardNumber" required>
         <br>
@@ -46,6 +57,31 @@
 </footer>
 
     <script>
+         // Add this code to your existing JavaScript logic
+         document.addEventListener('DOMContentLoaded', function () {
+            // Fetch authentication status from the server
+            fetch('/check-authentication')
+                .then(response => response.json())
+                .then(data => {
+                    const isAuthenticated = data.isAuthenticated;
+    
+                    // Access the account link element
+                    const accountLink = document.getElementById('accountLink');
+                    const loginLink = document.getElementById('loginLink');
+    
+                    // Show or hide the account link based on authentication status
+                    if (isAuthenticated) {
+                        accountLink.style.display = 'block';
+                        loginLink.style.display = 'none'; // Hide the login link
+                    } else {
+                        accountLink.style.display = 'none';
+                        loginLink.style.display = 'block'; // Show the login link
+                    }
+                })
+                .catch(error => {
+                    console.error('Error checking authentication status:', error);
+                });
+        });
         // Retrieve the cart data from session storage
         const storedCart = sessionStorage.getItem('cart');
         const shoppingCart = document.getElementById("shoppingCart");

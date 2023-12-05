@@ -1,24 +1,21 @@
 body {
-    background-color: black; /* Dark background color */
-    color: #ffffff; /* White text color */
+    background-color:  #007BFF; /* Dark background color */
+    color: black; /* White text color */
     font-family: 'Your Chosen Font', sans-serif; /* Specify your font */
 }
 
 header {
-    background-color: black; /* Darker background color for the header */
+    background-color:  #007BFF; /* Darker background color for the header */
 }
 
-.navbar {
-    background-color: white; /* Dark background color for the navbar */
-    color: black; /* White text color */
-}
+
 
 main {
     padding: 20px;
 }
 
 h2 {
-    color: #ff4500; /* Orange color for the section headings */
+    color: black; /* Orange color for the section headings */
 }
 
 .user-info,
@@ -55,21 +52,3 @@ h2 {
     margin-bottom: 10px;
 }
 
-footer {
-    background-color: white;
-    color: white;
-    padding: 10px;
-    text-align: center;
-}
-
-footer ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    justify-content: space-around;
-}
-
-footer a {
-    text-decoration: none;
-    color: black;
-}
